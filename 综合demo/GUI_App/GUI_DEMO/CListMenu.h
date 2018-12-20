@@ -41,6 +41,8 @@ struct	__obj_list{
   void *bmp;
   /* 图标的字符索引，bmp非空时本配置无效 */
   void *icon;
+  /* 图标使用的颜色 */
+  u32 color;
   /* 图标对应的应用程序 */
 	void (*cbStartup)(HWND hwnd);
 };

@@ -69,7 +69,7 @@ static void CreateSlogan(HDC hdc, const RECT *lprc, HWND hwnd)
 	GetClientRect(hwnd, &rc);
 	rc.h = HEAD_INFO_HEIGHT;
 
-	DrawText(hdc, L"高性能GUI", -1, &rc, DT_CENTER | DT_VCENTER);
+	DrawText(hdc, L"emXGUI 中国自主嵌入式图形界面", -1, &rc, DT_CENTER | DT_VCENTER);
 
 	GetClientRect(hwnd, &rc);
 	rc.y += HEAD_INFO_HEIGHT + 40;

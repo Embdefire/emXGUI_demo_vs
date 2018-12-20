@@ -167,6 +167,7 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_BMP_Speed.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Checkbox.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_CustomWidget.c" />
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Desktop.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Drawbitmap.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Drawbitmap_Extern.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_DrawGIF.c" />

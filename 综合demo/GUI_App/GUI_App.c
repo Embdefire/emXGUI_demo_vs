@@ -33,6 +33,7 @@ int		number_input_box(int x, int y, int w, int h,
 
 void	GUI_DEMO_Graphics_Accelerator(void);
 void	GUI_DEMO_SlideWindow(void);
+void	GUI_DEMO_Desktop(void);
 
 
 void GUI_AppMain(void)
@@ -42,7 +43,8 @@ void GUI_AppMain(void)
 
 	while (1)
 	{
-		GUI_DEMO_IconViewer();
+		GUI_DEMO_Desktop();
+		//GUI_DEMO_IconViewer();
 
 		//GUI_DEMO_SlideWindow();
 		//GUI_DEMO_Graphics_Accelerator();

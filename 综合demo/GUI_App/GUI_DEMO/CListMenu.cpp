@@ -133,6 +133,7 @@ void CListMenu::draw_icon_obj(HDC hdc,struct __x_obj_item *obj,u32 flag,u32 styl
 //	WCHAR wstr[64],wbuf[64+12];
 	RECT rc,rc0;
 	const void *bmp, *icon;
+	u32 icon_color;
 	BITMAPINFO info;
 	int x,y;
 	//HDC hdc_ico;
@@ -142,22 +143,23 @@ void CListMenu::draw_icon_obj(HDC hdc,struct __x_obj_item *obj,u32 flag,u32 styl
 
 	if(flag&OBJ_ACTIVE)
 	{
-	#if 1 /* 矩形背景 */
+	#if 0 /* 矩形背景 */
 		SetBrushColor(hdc,MapRGB(hdc,160,100,100));
-    InflateRect(&rc,-20,0);
+		//InflateRect(&rc,-20,0);
 
 		FillRect(hdc,&rc);
-	#endif
+
 		////
     /* 矩形外框 */
 		SetPenColor(hdc,MapRGB(hdc,255,0,0));
 //		InflateRect(&rc,-10,0);
-    DrawRect(hdc,&rc);
+		DrawRect(hdc,&rc);
     
 		SetPenColor(hdc,MapRGB(hdc,250,100,100));
 		InflateRect(&rc,-1,-1);
 
 		DrawRect(hdc,&rc);
+	#endif
 	}
 	else
 	{
@@ -169,11 +171,11 @@ void CListMenu::draw_icon_obj(HDC hdc,struct __x_obj_item *obj,u32 flag,u32 styl
 		if(style& LMS_ICONFRAME)
 		{
 			SetPenColor(hdc,MapRGB(hdc,255,255,255));
-			InflateRect(&rc,-20,0);
-      DrawRect(hdc,&rc);
+			//InflateRect(&rc,-20,0);
+			DrawRect(hdc,&rc);
       
 			SetPenColor(hdc,MapRGB(hdc,255,255,255));
-      InflateRect(&rc,-1,-1);
+			InflateRect(&rc,-1,-1);
 			DrawRect(hdc,&rc);
 		}
 
@@ -194,6 +196,7 @@ void CListMenu::draw_icon_obj(HDC hdc,struct __x_obj_item *obj,u32 flag,u32 styl
   }
   else if(icon != NULL)
   {   
+	icon_color = obj_tbl[obj->id].color;
     /* 显示APP对应的字体图标 */  
     SetFont(hdc, iconFont); 
 		
@@ -202,11 +205,14 @@ void CListMenu::draw_icon_obj(HDC hdc,struct __x_obj_item *obj,u32 flag,u32 styl
     rc0.x = rc.x;
     rc0.y = rc.y ;
     
-    SetTextColor(hdc,MapRGB(hdc,255,255,255));
+    //SetTextColor(hdc,MapRGB(hdc,255,255,255));
+	SetTextColor(hdc, MapXRGB8888(hdc, icon_color));
+
 
     DrawText(hdc,(LPCWSTR)icon,-1,&rc0,DT_VCENTER|DT_CENTER);
     SetFont(hdc, defaultFont); 
-    
+ 
+#if 0
     //矩形外框，图标字体宽度为100*100，所以减去它们的宽度除以2
     InflateRect(&rc0,-(rc0.w-100)/2,-(rc0.h-100)/2);
 
@@ -215,9 +221,10 @@ void CListMenu::draw_icon_obj(HDC hdc,struct __x_obj_item *obj,u32 flag,u32 styl
     
     InflateRect(&rc0,-1,-1);
     DrawRect(hdc,&rc0);
+#endif
   }
 	/////
-	SetTextColor(hdc,MapRGB(hdc,255,255,255));
+	//SetTextColor(hdc,MapRGB(hdc,255,255,255));
 
 	rc0.w =rc.w;
   rc0.h = rc.h*1/3;
