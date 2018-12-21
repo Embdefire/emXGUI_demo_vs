@@ -206,7 +206,7 @@ void CListMenu::draw_icon_obj(HDC hdc,struct __x_obj_item *obj,u32 flag,u32 styl
     rc0.y = rc.y ;
     
     //SetTextColor(hdc,MapRGB(hdc,255,255,255));
-	SetTextColor(hdc, MapXRGB8888(hdc, icon_color));
+	SetTextColor(hdc, MapXRGB8888(hdc, RGB_GOLD));
 
 
     DrawText(hdc,(LPCWSTR)icon,-1,&rc0,DT_VCENTER|DT_CENTER);

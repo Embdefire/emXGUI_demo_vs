@@ -287,6 +287,9 @@
     <ClInclude Include="..\GUI_App\GUI_DEMO\x_obj.h">
       <Filter>GUI_App</Filter>
     </ClInclude>
+    <ClInclude Include="..\X_GUI\Web_Color.h">
+      <Filter>X_GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">

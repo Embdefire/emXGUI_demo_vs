@@ -277,6 +277,7 @@
     <ClInclude Include="..\GUI_App\GUI_DEMO\list.h" />
     <ClInclude Include="..\GUI_App\GUI_DEMO\x_obj.h" />
     <ClInclude Include="..\X_GUI\emXGUI_JPEG.h" />
+    <ClInclude Include="..\X_GUI\Web_Color.h" />
     <ClInclude Include="..\X_GUI_Arch\Inc\GUI_Drv.h" />
     <ClInclude Include="..\X_GUI_Drv\gui_drv_cfg.h" />
     <ClInclude Include="resource.h" />

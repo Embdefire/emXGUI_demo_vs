@@ -14,11 +14,11 @@
 #define HEAD_INFO_HEIGHT   90
 #define WM_MSG_FRAME_DOWN  (WM_USER+50)
 
-//#define COLOR_DESKTOP_BACK_GROUND         215,61,50 //≥»
+#define COLOR_DESKTOP_BACK_GROUND         215,61,50 //≥»
 //#define COLOR_DESKTOP_BACK_GROUND         37,126,222	//¿∂	
 //#define COLOR_DESKTOP_BACK_GROUND         100,202,2		//¬Ã
 //#define COLOR_DESKTOP_BACK_GROUND         38,134,150		//…Ó¬Ã
-#define COLOR_DESKTOP_BACK_GROUND         254,209,4		//…Ó¬Ã
+//#define COLOR_DESKTOP_BACK_GROUND         254,209,4		//…Ó¬Ã
 #define COLOR_INVALID                       165,160,160
 #define RGB888_COLOR_DESKTOP_BACK_GROUND   RGB888(215,61,50)
 #define RGB888_COLOR_INVALID                 RGB888(165,160,160)
