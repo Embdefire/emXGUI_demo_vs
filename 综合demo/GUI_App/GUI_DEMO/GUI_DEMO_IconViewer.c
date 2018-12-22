@@ -132,23 +132,23 @@ static void App_GUI_Graphics_Accelerator(HWND hwnd)
 
 static struct __obj_list menu_list_1[] = {
 
-	L"Speed",		NULL, 	L"A", 				App_GUI_DEMO_Hello,
-		L"Hello",		NULL,	  L"B", 				App_GUI_Graphics_Accelerator,
-		//  	L"Hello",		NULL,	  L"B", 				dummy,
-		//		L"Button",		NULL,	  L"C", 				App_GUI_Climate_Cabinet,
+	L"Speed",		NULL, 	L"A", 	RGB_WHITE,			App_GUI_DEMO_Hello,
+		L"Hello",		NULL,	  L"B", RGB_WHITE,				App_GUI_Graphics_Accelerator,
+		//  	L"Hello",		NULL,	  L"B", RGB_WHITE,				dummy,
+		//		L"Button",		NULL,	  L"C", RGB_WHITE,				App_GUI_Climate_Cabinet,
 
-				L"Button",		NULL,	  L"C", 				App_GUI_ShowWave,
+				L"Button",		NULL,	  L"C",RGB_WHITE, 				App_GUI_ShowWave,
 
-				L"Checkbox",	NULL, 	L"D", 				dummy,
-				L"Radiobox",	NULL,   L"E", 				dummy,
-				L"Textbox",	NULL,	  L"F", 				dummy,
+				L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
+				L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
+				L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
 
-				//    L"Speed",		NULL,	  L"G", 				dummy,
-				//    L"Hello",		NULL,	  L"H", 				dummy,
-				//    L"Button",	  NULL,	  L"I", 				dummy,
-				//    L"Checkbox",	NULL,	  L"J", 				dummy,
+				//    L"Speed",		NULL,	  L"G",RGB_WHITE, 				dummy,
+				//    L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
+				//    L"Button",	  NULL,	  L"I", RGB_WHITE,				dummy,
+				//    L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
 
-						NULL,	NULL,	NULL, NULL,//结束标志!
+						NULL,	NULL,NULL,	NULL, NULL,//结束标志!
 
 };
 
@@ -235,7 +235,7 @@ static	LRESULT	WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		cfg.y_num = 1; //垂直项数.
 		CreateWindow(&wcex_ListMenu,
 			L"ListMenu1",
-			WS_VISIBLE | LMS_ICONFRAME,
+			WS_VISIBLE | LMS_ICONFRAME| LMS_ICONINNERFRAME| LMS_TOUCHSHADOW,
 			rc.x + 100, rc.y + 10, rc.w - 200, rc.h - 10,
 			hwnd,
 			ID_LIST_1,

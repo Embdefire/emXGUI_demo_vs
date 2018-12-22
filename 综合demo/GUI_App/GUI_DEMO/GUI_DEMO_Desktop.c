@@ -137,15 +137,24 @@ static struct __obj_list menu_list_1[] = {
 		//  	L"Hello",		NULL,	  L"B", RGB_WHITE,				dummy,
 		//		L"Button",		NULL,	  L"C",RGB_WHITE, 				App_GUI_Climate_Cabinet,
 
-		L"Button",		NULL,	  L"C", RGB_WHITE,				App_GUI_ShowWave,
+		L"Button",		NULL,	  L"C", RGB_YELLOW,				App_GUI_ShowWave,
 
-		L"Checkbox",	NULL, 	L"D", RGB_LAVENDER,				dummy,
-		L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
-		L"Textbox",	NULL,	  L"F", RGB_SIENNA,				dummy,
+		L"Checkbox",	NULL, 	L"D", RGB_HONEYDEW,				dummy,
+		L"Radiobox",	NULL,   L"E", RGB_DODGERBLUE,				dummy,
+		L"Textbox",	NULL,	  L"F", RGB_DARKSLATEGRAY,				dummy,
 
-		L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
+		L"Speed",		NULL,	  L"G", RGB_HOTPINK,				dummy,
 		L"Hello",		NULL,	  L"H", RGB_LAWNGREEN,				dummy,
-		L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
+		L"Button",	  NULL,	  L"I", 	RGB_SKYBLUE,			dummy,
+		L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
+
+		L"Checkbox",	NULL, 	L"D", RGB_HONEYDEW,				dummy,
+		L"Radiobox",	NULL,   L"E", RGB_DODGERBLUE,				dummy,
+		L"Textbox",	NULL,	  L"F", RGB_DARKSLATEGRAY,				dummy,
+
+		L"Speed",		NULL,	  L"G", RGB_HOTPINK,				dummy,
+		L"Hello",		NULL,	  L"H", RGB_LAWNGREEN,				dummy,
+		L"Button",	  NULL,	  L"I", 	RGB_SKYBLUE,			dummy,
 		L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
 
 		NULL,	NULL,	NULL,NULL, NULL,//Ω· ¯±Í÷æ!
@@ -236,7 +245,7 @@ static	LRESULT	WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		CreateWindow(&wcex_ListMenu,
 			L"ListMenu1",
 			WS_VISIBLE /*| LMS_ICONFRAME*/,
-			rc.x + 50, rc.y + 40, rc.w - 100, rc.h,
+			rc.x + 50, rc.y + 20, rc.w - 100, rc.h-10,
 			hwnd,
 			ID_LIST_1,
 			NULL,

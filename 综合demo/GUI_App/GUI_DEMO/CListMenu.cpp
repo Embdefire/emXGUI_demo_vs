@@ -143,23 +143,32 @@ void CListMenu::draw_icon_obj(HDC hdc,struct __x_obj_item *obj,u32 flag,u32 styl
 
 	if(flag&OBJ_ACTIVE)
 	{
-	#if 0 /* 矩形背景 */
-		SetBrushColor(hdc,MapRGB(hdc,160,100,100));
-		//InflateRect(&rc,-20,0);
+		/* 矩形背景 */
+		if (style& LMS_TOUCHSHADOW)
+		{
+			rc = obj->rc;
 
-		FillRect(hdc,&rc);
+			SetBrushColor(hdc, MapRGB(hdc, 160, 100, 100));
+			InflateRect(&rc,-20,0);
 
-		////
-    /* 矩形外框 */
-		SetPenColor(hdc,MapRGB(hdc,255,0,0));
-//		InflateRect(&rc,-10,0);
-		DrawRect(hdc,&rc);
-    
-		SetPenColor(hdc,MapRGB(hdc,250,100,100));
-		InflateRect(&rc,-1,-1);
+			FillRect(hdc, &rc);
+		}
 
-		DrawRect(hdc,&rc);
-	#endif
+		if (style& LMS_ICONFRAME)
+		{
+			rc = obj->rc;
+
+			////
+			/* 矩形外框 */
+			SetPenColor(hdc, MapRGB(hdc, 255, 0, 0));
+			InflateRect(&rc,-20,0);
+			DrawRect(hdc, &rc);
+
+			SetPenColor(hdc, MapRGB(hdc, 250, 100, 100));
+			InflateRect(&rc, -1, -1);
+
+			DrawRect(hdc, &rc);
+		}
 	}
 	else
 	{
@@ -171,7 +180,7 @@ void CListMenu::draw_icon_obj(HDC hdc,struct __x_obj_item *obj,u32 flag,u32 styl
 		if(style& LMS_ICONFRAME)
 		{
 			SetPenColor(hdc,MapRGB(hdc,255,255,255));
-			//InflateRect(&rc,-20,0);
+			InflateRect(&rc,-20,0);
 			DrawRect(hdc,&rc);
       
 			SetPenColor(hdc,MapRGB(hdc,255,255,255));
@@ -206,22 +215,23 @@ void CListMenu::draw_icon_obj(HDC hdc,struct __x_obj_item *obj,u32 flag,u32 styl
     rc0.y = rc.y ;
     
     //SetTextColor(hdc,MapRGB(hdc,255,255,255));
-	SetTextColor(hdc, MapXRGB8888(hdc, RGB_GOLD));
+	SetTextColor(hdc, MapXRGB8888(hdc, icon_color));
 
 
     DrawText(hdc,(LPCWSTR)icon,-1,&rc0,DT_VCENTER|DT_CENTER);
     SetFont(hdc, defaultFont); 
  
-#if 0
-    //矩形外框，图标字体宽度为100*100，所以减去它们的宽度除以2
-    InflateRect(&rc0,-(rc0.w-100)/2,-(rc0.h-100)/2);
+	if (style& LMS_ICONINNERFRAME)
+	{
+		//矩形内框，图标字体宽度为100*100，所以减去它们的宽度除以2
+		InflateRect(&rc0, -(rc0.w - 100) / 2, -(rc0.h - 100) / 2);
 
-    SetPenColor(hdc,MapRGB(hdc,255,255,255));
-    DrawRect(hdc,&rc0);
-    
-    InflateRect(&rc0,-1,-1);
-    DrawRect(hdc,&rc0);
-#endif
+		SetPenColor(hdc, MapRGB(hdc, 255, 255, 255));
+		DrawRect(hdc, &rc0);
+
+		InflateRect(&rc0, -1, -1);
+		DrawRect(hdc, &rc0);
+	}
   }
 	/////
 	//SetTextColor(hdc,MapRGB(hdc,255,255,255));

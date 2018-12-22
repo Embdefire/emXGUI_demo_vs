@@ -1,7 +1,7 @@
 #ifndef __DEF_H_WEB_COLOR__
 #define __DEF_H_WEB_COLOR__
 
-/* 颜色表参考：http://www.shouce.ren/api/html/html4/appendix-color.html */
+/* 颜色表参考 "IE4+预命名颜色"：http://www.shouce.ren/api/html/html4/appendix-color.html */
 
 #define RGB_BLACK 0
 #define RGB_WHITE 0XFFFFFF
