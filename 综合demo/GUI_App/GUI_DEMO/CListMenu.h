@@ -27,7 +27,8 @@ enum	eMSG_LISTMENU{
 #define LMS_TOUCHSHADOW	(1<<5) //触摸时是否带阴影
 
 ////ListMenu 通知码
-#define	LMN_CLICKED 0 //单击
+#define	LMN_CLICKED   0 //单击
+#define	LMN_SELCHANGE 1
 
 typedef struct {
 	NMHDR hdr;
