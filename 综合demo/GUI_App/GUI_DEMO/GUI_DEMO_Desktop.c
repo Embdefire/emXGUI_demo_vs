@@ -133,28 +133,28 @@ static void App_GUI_Graphics_Accelerator(HWND hwnd)
 static struct __obj_list menu_list_1[] = {
 
 		L"Speed",		NULL, 	L"A", 	RGB_WHITE,			App_GUI_DEMO_Hello,
-		L"Hello",		NULL,	  L"B", RGB_GOLD,				App_GUI_Graphics_Accelerator,
+		L"Hello",		NULL,	  L"B", RGB_WHITE,				App_GUI_Graphics_Accelerator,
 		//  	L"Hello",		NULL,	  L"B", RGB_WHITE,				dummy,
 		//		L"Button",		NULL,	  L"C",RGB_WHITE, 				App_GUI_Climate_Cabinet,
 
-		L"Button",		NULL,	  L"C", RGB_YELLOW,				App_GUI_ShowWave,
+		L"Button",		NULL,	  L"C", RGB_WHITE,				App_GUI_ShowWave,
 
-		L"Checkbox",	NULL, 	L"D", RGB_HONEYDEW,				dummy,
-		L"Radiobox",	NULL,   L"E", RGB_DODGERBLUE,				dummy,
-		L"Textbox",	NULL,	  L"F", RGB_DARKSLATEGRAY,				dummy,
+		L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
+		L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
+		L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
 
-		L"Speed",		NULL,	  L"G", RGB_HOTPINK,				dummy,
-		L"Hello",		NULL,	  L"H", RGB_LAWNGREEN,				dummy,
-		L"Button",	  NULL,	  L"I", 	RGB_SKYBLUE,			dummy,
+		L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
+		L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
+		L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
 		L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
 
-		L"Checkbox",	NULL, 	L"D", RGB_HONEYDEW,				dummy,
-		L"Radiobox",	NULL,   L"E", RGB_DODGERBLUE,				dummy,
-		L"Textbox",	NULL,	  L"F", RGB_DARKSLATEGRAY,				dummy,
+		L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
+		L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
+		L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
 
-		L"Speed",		NULL,	  L"G", RGB_HOTPINK,				dummy,
-		L"Hello",		NULL,	  L"H", RGB_LAWNGREEN,				dummy,
-		L"Button",	  NULL,	  L"I", 	RGB_SKYBLUE,			dummy,
+		L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
+		L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
+		L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
 		L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
 
 		NULL,	NULL,	NULL,NULL, NULL,//Ω· ¯±Í÷æ!

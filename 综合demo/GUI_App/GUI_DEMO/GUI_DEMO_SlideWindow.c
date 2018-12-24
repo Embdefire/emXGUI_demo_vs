@@ -10,15 +10,27 @@
 #include "GUI_AppDef.h"
 //#include "cpuusage.h"
 
+/* 为0时显示GUI的广告，为1时显示开发板的广告 */
+u8 slogan_flag = 1;
+ /*============================================================================*/
+ /*============================================================================*/
+const wchar_t string_slogan_gui[] = L" ■ 占用资源少，效率高\r\n\r\n"\
+L" ■ 控件风格支持用户重定义\r\n\r\n"\
+L" ■ 提供字体制作工具,支持矢量字体\r\n\r\n"\
+L" ■ 支持多unicode编码，含国语言如：\r\n\r\n"\
+L"    中文，英文，越南语，西班牙语等\r\n\r\n"\
+L" ■ >10年深度优化，使用高性能的绘图引擎";
 
- /*============================================================================*/
- /*============================================================================*/
-#define SLOGAN      L" ■ 占用资源少，效率高\r\n\r\n"\
-                      L" ■ 控件风格支持用户重定义\r\n\r\n"\
-                      L" ■ 提供字体制作工具,支持矢量字体\r\n\r\n"\
-                      L" ■ 支持多unicode编码，含国语言如：\r\n\r\n"\
-                      L"    中文，英文，越南语，西班牙语等\r\n\r\n"\
-                      L" ■ >10年深度优化，使用高性能的绘图引擎"
+const wchar_t header_slogan_gui[] = L"emXGUI 中国自主嵌入式图形界面";
+
+const wchar_t string_slogan_board[] = L" ■ 占用资源少，效率高\r\n\r\n"\
+L" ■ 控件风格支持用户重定义\r\n\r\n"\
+L" ■ 提供字体制作工具,支持矢量字体\r\n\r\n"\
+L" ■ 支持多unicode编码，含国语言如：\r\n\r\n"\
+L"    中文，英文，越南语，西班牙语等\r\n\r\n"\
+L" ■ >10年深度优化，使用高性能的绘图引擎";
+
+const wchar_t header_slogan_board[] = L"野火 STM32开发板";
 //extern const unsigned char gImage_0[];
 /*============================================================================*/
 
@@ -40,6 +52,20 @@ static void CreateSlogan(HDC hdc, const RECT *lprc, HWND hwnd)
 {
 	RECT rc;
 	JPG_DEC *dec;
+
+	wchar_t *p_header;
+	wchar_t *p_string;
+
+	if (slogan_flag)
+	{
+		p_header = header_slogan_board;
+		p_string = string_slogan_board;
+	}
+	else
+	{
+		p_header = header_slogan_gui;
+		p_string = string_slogan_gui;
+	}
 
 	if (lprc == NULL)
 	{
@@ -69,7 +95,7 @@ static void CreateSlogan(HDC hdc, const RECT *lprc, HWND hwnd)
 	GetClientRect(hwnd, &rc);
 	rc.h = HEAD_INFO_HEIGHT;
 
-	DrawText(hdc, L"emXGUI 中国自主嵌入式图形界面", -1, &rc, DT_CENTER | DT_VCENTER);
+	DrawText(hdc, p_header, -1, &rc, DT_CENTER | DT_VCENTER);	
 
 	GetClientRect(hwnd, &rc);
 	rc.y += HEAD_INFO_HEIGHT + 40;
@@ -78,13 +104,7 @@ static void CreateSlogan(HDC hdc, const RECT *lprc, HWND hwnd)
 	SetFont(hdc, defaultFont);
 	//      DrawText(hdc, SLOGAN, -1,&rc0,DT_LEFT);       
 
-	DrawText(hdc, L" ■ 占用资源少，效率高\r\n\r\n"
-		L" ■ 控件风格支持用户重定义\r\n\r\n"
-		L" ■ 提供字体制作工具，支持矢量字体\r\n\r\n"
-		L" ■ 支持unicode编码，支持多国语言如：\r\n\r\n"
-		L"    中文、英文、越南语、西班牙语等\r\n\r\n"
-		L" ■ 10年深度优化，使用高性能的绘图引擎",
-		-1, &rc, DT_LEFT);
+	DrawText(hdc, p_string, -1, &rc, DT_LEFT);
 
 	SetTextColor(hdc, MapRGB(hdc, COLOR_DESKTOP_BACK_GROUND));
 	rc.y = GUI_YSIZE - 60;
