@@ -33,6 +33,7 @@ extern "C"{
 
 
   void	GUI_LED_DIALOG(void);
+  void	GUI_DEMO_IconViewer(void);
 
 }
 
@@ -59,6 +60,41 @@ extern "C" void App_LED_DIALOG(void)
     {
       app = 1;
       GUI_LED_DIALOG();
+
+      app = 0;
+      thread = 0;
+    }
+    else
+    {
+      //			MSGBOX(hwnd,L"程序已在运行中...",L"消息提示!");
+    }
+  }
+}
+
+
+/*
+* GUI Demo对话框
+*/
+extern "C" void App_GUI_DEMO(void)
+{
+  static int thread = 0;
+  static int app = 0;
+
+  if (thread == 0)
+  {
+    //创建一个独立线程来运行自已...
+    CreateThread(NULL, 256 * 1024, (LPTHREAD_START_ROUTINE)App_GUI_DEMO, NULL, 0, NULL);
+
+    thread = 1;
+    return;
+  }
+
+  if (thread == 1) //线程已创建了?
+  {
+    if (app == 0)
+    {
+      app = 1;
+      GUI_DEMO_IconViewer();
 
       app = 0;
       thread = 0;

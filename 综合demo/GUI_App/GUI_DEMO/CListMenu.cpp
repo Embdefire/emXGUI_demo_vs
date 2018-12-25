@@ -162,7 +162,7 @@ void CListMenu::draw_icon_obj(HDC hdc, struct __x_obj_item *obj, u32 flag, u32 s
             rc = obj->rc;
 
             SetBrushColor(hdc, MapRGB(hdc, 160, 100, 100));
-            InflateRect(&rc, -20, 0);
+            InflateRect(&rc, -20, -20);
 
             FillRect(hdc, &rc);
         }
@@ -174,7 +174,7 @@ void CListMenu::draw_icon_obj(HDC hdc, struct __x_obj_item *obj, u32 flag, u32 s
             ////
             /* ¾ØÐÎÍâ¿ò */
             SetPenColor(hdc, MapRGB(hdc, 255, 0, 0));
-            InflateRect(&rc, -20, 0);
+            InflateRect(&rc, -20, -20);
             DrawRect(hdc, &rc);
 
             SetPenColor(hdc, MapRGB(hdc, 250, 100, 100));
@@ -193,7 +193,7 @@ void CListMenu::draw_icon_obj(HDC hdc, struct __x_obj_item *obj, u32 flag, u32 s
         if (style& LMS_ICONFRAME)
         {
             SetPenColor(hdc, MapRGB(hdc, 255, 255, 255));
-            InflateRect(&rc, -20, 0);
+            InflateRect(&rc, -20, -20);
             DrawRect(hdc, &rc);
 
             SetPenColor(hdc, MapRGB(hdc, 255, 255, 255));
