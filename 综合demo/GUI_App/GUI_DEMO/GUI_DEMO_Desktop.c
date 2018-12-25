@@ -33,101 +33,21 @@
 #define	ID_LIST_1 0x1000
 #define ID_LIST_2 0x1001
 
-extern const char app_1[];
+//extern const char app_1[];
 
 //static const void *pDefIcon = app_1;
 //static const void *pIcon_app2 =app_2;
 
-
+/*
+*   应用程序的空回调函数
+*/
 static void dummy(HWND hwnd)
 {
 
 }
 
-extern void	GUI_DEMO_Hello(void);
-extern void	GUI_DEMO_Graphics_Accelerator(void);
-extern void	GUI_DEMO_Climate_Cabinet(void);
+extern void App_LED_DIALOG(void);
 
-extern void App_GUI_DEMO_Hello(void);
-extern void App_GUI_Graphics_Accelerator(void);
-extern void App_GUI_ShowWave(void);
-
-#if 0
-static void App_GUI_DEMO_Hello(HWND hwnd)
-{
-
-    static int thread = 0;
-    static int app = 0;
-    rt_thread_t h;
-
-
-    if (thread == 0)
-    {  //创建一个独立线程来运行自已...
-  //		CreateThread((FN_ThreadEntry*)app_gui_test,hwnd,8192);
-        h = rt_thread_create("GUI_APP_DEMO_Hello", (void(*)(void*))App_GUI_DEMO_Hello, NULL, 8192, 5, 5);
-        rt_thread_startup(h);
-
-        thread = 1;
-        return;
-    }
-
-    if (thread == 1) //线程已创建了?
-    {
-        if (app == 0)
-        {
-            app = 1;
-            GUI_DEMO_Hello();
-
-            app = 0;
-            thread = 0;
-        }
-        else
-        {
-            //			MSGBOX(hwnd,L"程序已在运行中...",L"消息提示!");
-        }
-    }
-}
-#endif
-
-
-
-#if 0
-static void App_GUI_Graphics_Accelerator(HWND hwnd)
-{
-
-    static int thread = 0;
-    static int app = 0;
-    rt_thread_t h;
-
-
-    if (thread == 0)
-    {  //创建一个独立线程来运行自已...
-  //		CreateThread((FN_ThreadEntry*)app_gui_test,hwnd,8192);
-        h = rt_thread_create("GUI_APP_Graphics_Accelerator", (void(*)(void*))App_GUI_Graphics_Accelerator, NULL, 10 * 1024, 5, 5);
-        rt_thread_startup(h);
-
-        thread = 1;
-        return;
-    }
-
-    if (thread == 1) //线程已创建了?
-    {
-        if (app == 0)
-        {
-            app = 1;
-            GUI_DEMO_Graphics_Accelerator();
-
-            app = 0;
-            thread = 0;
-        }
-        else
-        {
-            //			MSGBOX(hwnd,L"程序已在运行中...",L"消息提示!");
-        }
-    }
-
-}
-#endif
 
 
 static struct __obj_list menu_list_1[] = {
@@ -138,12 +58,12 @@ static struct __obj_list menu_list_1[] = {
     //L"Radiobox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
     //L"Textbox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
 
-    L"Speed",		NULL, 	L"A", 	RGB_WHITE,			App_GUI_DEMO_Hello,
-    L"Hello",		NULL,	  L"B", RGB_WHITE,				App_GUI_Graphics_Accelerator,
+    L"Speed",		NULL, 	L"A", 	RGB_WHITE,			App_LED_DIALOG,
+    L"Hello",		NULL,	  L"B", RGB_WHITE,				dummy,
         L"Hello",		NULL,	  L"B", RGB_WHITE,				dummy,
         //		L"Button",		NULL,	  L"C",RGB_WHITE, 				App_GUI_Climate_Cabinet,
 
-        L"Button",		NULL,	  L"C", RGB_WHITE,				App_GUI_ShowWave,
+        L"Button",		NULL,	  L"C", RGB_WHITE,				dummy,
 
         L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
         L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,

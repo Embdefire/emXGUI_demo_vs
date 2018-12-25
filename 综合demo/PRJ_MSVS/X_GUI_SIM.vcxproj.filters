@@ -243,6 +243,12 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Desktop.c">
       <Filter>GUI_Board_App</Filter>
     </ClCompile>
+    <ClCompile Include="..\X_GUI_SIM_App.cpp">
+      <Filter>SIM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_SIM_Board_App.cpp">
+      <Filter>SIM</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">

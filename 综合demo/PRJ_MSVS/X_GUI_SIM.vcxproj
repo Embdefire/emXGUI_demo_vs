@@ -268,6 +268,10 @@
     <ClCompile Include="..\X_GUI_Arch\OS_Options\X_GUI_WIN32.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /Zm1000   /Zm1000 </AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\X_GUI_SIM_App.cpp" />
+    <ClCompile Include="..\X_GUI_SIM_Board_App.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GUI_App\GUI_DEMO\CListMenu.h">
