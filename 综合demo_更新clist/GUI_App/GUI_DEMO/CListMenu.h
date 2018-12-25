@@ -22,9 +22,11 @@ enum	eMSG_LISTMENU{
 #define	LMS_HOR			(1<<0) //水平滑动的
 #define	LMS_VER			(1<<1) //垂直滑动的
 #define	LMS_ICONFRAME	(1<<2) //图标带框
-#define	LMS_ICONTITLE	(1<<3) //图标带标题
-#define	LMS_ICONINNERFRAME	(1<<4) //图标带内框
-#define LMS_TOUCHSHADOW	(1<<5) //触摸时是否带阴影
+#define	LMS_PAGEMOVE	(1<<3) //按整页移动.
+
+#define	LMS_ICONTITLE	(1<<4) //图标带标题
+#define	LMS_ICONINNERFRAME	(1<<5) //图标带内框
+#define LMS_TOUCHSHADOW	(1<<6) //触摸时是否带阴影
 
 ////ListMenu 通知码
 #define	LMN_CLICKED   0 //单击

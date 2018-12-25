@@ -140,28 +140,28 @@ static struct __obj_list menu_list_1[] = {
 
 		L"Speed",		NULL, 	L"A", 	RGB_WHITE,			App_GUI_DEMO_Hello,
 		L"Hello",		NULL,	  L"B", RGB_WHITE,				App_GUI_Graphics_Accelerator,
-		//  	L"Hello",		NULL,	  L"B", RGB_WHITE,				dummy,
-		////		L"Button",		NULL,	  L"C",RGB_WHITE, 				App_GUI_Climate_Cabinet,
+		  	L"Hello",		NULL,	  L"B", RGB_WHITE,				dummy,
+		//		L"Button",		NULL,	  L"C",RGB_WHITE, 				App_GUI_Climate_Cabinet,
 
-		//L"Button",		NULL,	  L"C", RGB_WHITE,				App_GUI_ShowWave,
+		L"Button",		NULL,	  L"C", RGB_WHITE,				App_GUI_ShowWave,
 
-		//L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
-		//L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
-		//L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
+		L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
+		L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
+		L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
 
-		//L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
-		//L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
-		//L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
-		//L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
+		L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
+		L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
+		L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
+		L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
 
-		//L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
-		//L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
-		//L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
+		L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
+		L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
+		L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
 
-		//L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
-		//L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
-		//L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
-		//L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
+		L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
+		L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
+		L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
+		L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
 
 		NULL,	NULL,	NULL,NULL, NULL,//结束标志!
 
@@ -258,14 +258,14 @@ static	LRESULT	WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			&cfg);
 
 		///* 上一步按钮 */
-		//wnd = CreateWindow(BUTTON, L"A", BS_FLAT | BS_NOTIFY | WS_OWNERDRAW | WS_VISIBLE,
-		//	0, rc.h * 1 / 3, 70, 70, hwnd, ICON_VIEWER_ID_PREV, NULL, NULL);
-		//SetWindowFont(wnd, controlFont); //设置控件窗口字体.
+		wnd = CreateWindow(BUTTON, L"A", BS_FLAT | BS_NOTIFY | WS_OWNERDRAW | WS_VISIBLE,
+			0, rc.h * 1 / 3, 70, 70, hwnd, ICON_VIEWER_ID_PREV, NULL, NULL);
+		SetWindowFont(wnd, controlFont); //设置控件窗口字体.
 
-		// /* 下一步按钮 */
-		//wnd = CreateWindow(BUTTON, L"B", BS_FLAT | BS_NOTIFY | WS_OWNERDRAW | WS_VISIBLE,
-		//	rc.w - 65, rc.h * 1 / 3, 70, 70, hwnd, ICON_VIEWER_ID_NEXT, NULL, NULL);
-		//SetWindowFont(wnd, controlFont); //设置控件窗口字体.
+		 /* 下一步按钮 */
+		wnd = CreateWindow(BUTTON, L"B", BS_FLAT | BS_NOTIFY | WS_OWNERDRAW | WS_VISIBLE,
+			rc.w - 65, rc.h * 1 / 3, 70, 70, hwnd, ICON_VIEWER_ID_NEXT, NULL, NULL);
+		SetWindowFont(wnd, controlFont); //设置控件窗口字体.
 
 		SetTimer(hwnd, 1, 50, TMR_START, NULL);
 	}
