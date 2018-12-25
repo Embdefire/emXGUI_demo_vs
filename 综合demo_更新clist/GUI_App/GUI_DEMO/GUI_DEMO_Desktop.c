@@ -131,12 +131,12 @@ static void App_GUI_Graphics_Accelerator(HWND hwnd)
 
 
 static struct __obj_list menu_list_1[] = {
-			L"Speed",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
-		L"Hello",		app_1,		NULL, 	 	RGB_WHITE,			dummy,
-		L"Button",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
-		L"Checkbox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
-		L"Radiobox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
-		L"Textbox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
+		//	L"Speed",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
+		//L"Hello",		app_1,		NULL, 	 	RGB_WHITE,			dummy,
+		//L"Button",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
+		//L"Checkbox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
+		//L"Radiobox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
+		//L"Textbox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
 
 		L"Speed",		NULL, 	L"A", 	RGB_WHITE,			App_GUI_DEMO_Hello,
 		L"Hello",		NULL,	  L"B", RGB_WHITE,				App_GUI_Graphics_Accelerator,
@@ -146,6 +146,23 @@ static struct __obj_list menu_list_1[] = {
 		L"Button",		NULL,	  L"C", RGB_WHITE,				App_GUI_ShowWave,
 
 		L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
+		L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
+		L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
+
+		L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
+		L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
+		L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
+		L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
+
+		L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
+		L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
+		L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
+
+		L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
+		L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
+		L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
+		L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
+				L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
 		L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
 		L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
 
@@ -250,8 +267,8 @@ static	LRESULT	WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		cfg.y_num = 3; //垂直项数.
 		CreateWindow(&wcex_ListMenu,
 			L"ListMenu1",
-			WS_VISIBLE /*| LMS_ICONFRAME*/,
-			rc.x + 50, rc.y + 20, rc.w - 100, rc.h-10,
+			WS_VISIBLE | LMS_PAGEMOVE ,
+			rc.x + 60, rc.y + 20, rc.w - 120, rc.h-10,
 			hwnd,
 			ID_LIST_1,
 			NULL,
@@ -259,12 +276,12 @@ static	LRESULT	WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 		///* 上一步按钮 */
 		wnd = CreateWindow(BUTTON, L"A", BS_FLAT | BS_NOTIFY | WS_OWNERDRAW | WS_VISIBLE,
-			0, rc.h * 1 / 3, 70, 70, hwnd, ICON_VIEWER_ID_PREV, NULL, NULL);
+			0, (rc.h - 30) / 2, 70, 70, hwnd, ICON_VIEWER_ID_PREV, NULL, NULL);
 		SetWindowFont(wnd, controlFont); //设置控件窗口字体.
 
 		 /* 下一步按钮 */
 		wnd = CreateWindow(BUTTON, L"B", BS_FLAT | BS_NOTIFY | WS_OWNERDRAW | WS_VISIBLE,
-			rc.w - 65, rc.h * 1 / 3, 70, 70, hwnd, ICON_VIEWER_ID_NEXT, NULL, NULL);
+			rc.w - 65, (rc.h -30) / 2, 70, 70, hwnd, ICON_VIEWER_ID_NEXT, NULL, NULL);
 		SetWindowFont(wnd, controlFont); //设置控件窗口字体.
 
 		SetTimer(hwnd, 1, 50, TMR_START, NULL);
