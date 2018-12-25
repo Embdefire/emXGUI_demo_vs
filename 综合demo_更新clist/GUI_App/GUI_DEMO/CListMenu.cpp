@@ -5,7 +5,7 @@
 
 #include "x_libc.h"
 #include "x_obj.h"
-#include "XFT_res.h"
+//#include "XFT_res.h"
 #include "CListMenu.h"
 
 #include <emXGUI.h>
@@ -47,6 +47,7 @@ enum eID
 class	CListMenu {
 
 public:
+	RECT rc_list;
 
 	LRESULT	OnCreate(HWND hwnd, list_menu_cfg_t *cfg);
 	LRESULT	OnDestroy(HWND hwnd);
@@ -65,11 +66,15 @@ public:
 	void MoveToPrev(int bXmove, int bYmove);
 	void MoveToNext(int bXmove, int bYmove);
 
+	void draw_icon_obj(HDC hdc, struct __x_obj_item *obj, u32 flag, u32 style);
+	struct __x_obj_item *focus_list_obj;
+
+
 private:
 	//BOOL Init(int x,int y,int w,int h,int x_count,int y_count,const struct __obj_list *list_objs);
 
 	void OffsetObjs(int dx, int dy);
-	void draw_icon_obj(HDC hdc, struct __x_obj_item *obj, u32 flag, u32 style);
+	//void draw_icon_obj(HDC hdc, struct __x_obj_item *obj, u32 flag, u32 style);
 	LRESULT DrawFrame(HDC hdc, HWND hwnd);
 
 	void SetToPrevPage(void);
@@ -89,11 +94,11 @@ private:
 
 	//HFONT hFontSEG_32;
 
-	RECT rc_main, rc_list;
+	RECT rc_main;// , rc_list;
 
 	const struct __obj_list *obj_tbl;
 
-	struct __x_obj_item *focus_list_obj;
+	//struct __x_obj_item *focus_list_obj;
 	struct __x_obj_item *list_item;
 
 };
@@ -167,7 +172,7 @@ void CListMenu::draw_icon_obj(HDC hdc, struct __x_obj_item *obj, u32 flag, u32 s
 	}
 
 #if 1
-	bmp = (*obj_tbl[obj->id].bmp);
+	bmp = (obj_tbl[obj->id].bmp);
 	BMP_GetInfo(&info, bmp);
 
 	x = rc.x + (((int)rc.w - (int)info.Width) / 2);
@@ -415,6 +420,7 @@ LRESULT CListMenu::DrawFrame(HDC hdc, HWND hwnd)
 	ClrDisplay(hdc, NULL, MapRGB(hdc, 0, 50, 50));
 	//BMP_Draw(hdc,0,0,bkgnd_bmp,NULL);
 
+#if 0
 	////list_item
 	SetFont(hdc, NULL);
 	obj = x_obj_get_first(list_item);
@@ -434,6 +440,9 @@ LRESULT CListMenu::DrawFrame(HDC hdc, HWND hwnd)
 
 		obj = x_obj_get_next(obj);
 	}
+#else
+	x_obj_draw(hdc, list_item);
+#endif
 
 #if 0
 	////button_item
@@ -659,11 +668,40 @@ void CListMenu::OffsetObjs(int dx, int dy)
 
 
 /*============================================================================*/
+static void ListItemDraw(HDC hdc, struct __x_obj_item * obj)
+{
+	HWND hwnd;
+	CListMenu *pApp;
+	int style;
+
+	////list_item
+	SetFont(hdc, NULL);
+
+	/* 类的回调函数扩展参数，hwnd句柄 */
+	hwnd = *(HWND *)x_obj_get_extra_ptr(obj->parent);
+	pApp = (CListMenu*)GetWindowLong(hwnd, GWL_USERDATA);
+
+	style = GetWindowLong(hwnd, GWL_STYLE);
+
+	if (IsIntersectRect(&pApp->rc_list, &obj->rc))
+	{	//只绘制在可视区内的对象.
+		if (pApp->focus_list_obj == obj)
+		{
+			pApp->draw_icon_obj(hdc, obj, OBJ_ACTIVE, style);
+		}
+		else
+		{
+			pApp->draw_icon_obj(hdc, obj, 0, style);
+		}
+	}
+}
 
 LRESULT CListMenu::OnCreate(HWND hwnd, list_menu_cfg_t *cfg)
 {
 	int i, j, page, style;
 	RECT rc, *m_rc;
+	__x_obj_item *obj;
+	HWND *pextra;
 
 	hwndMain = hwnd;
 	focus_list_obj = NULL;
@@ -712,7 +750,11 @@ LRESULT CListMenu::OnCreate(HWND hwnd, list_menu_cfg_t *cfg)
 	rc_list = rc;
 
 
-	list_item = x_obj_create(L"list_item", 0xFFFFFFFF, &rc_list, X_OBJ_VISIBLE, 0, NULL);
+	//list_item = x_obj_create(L"list_item", 0xFFFFFFFF, &rc_list, X_OBJ_VISIBLE, 0, NULL);
+	list_item = x_obj_create_class(L"list_item", 0xFFFFFFFF, &rc_list, X_OBJ_VISIBLE, sizeof(HWND), ListItemDraw);
+	pextra = (HWND *)x_obj_get_extra_ptr(list_item);
+	*pextra = hwnd;
+
 	rc = rc_list;
 
 	MakeMatrixRect(m_rc, &rc_list, 0, 0, x_num, y_num);
