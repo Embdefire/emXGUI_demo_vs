@@ -131,16 +131,16 @@ static void App_GUI_Graphics_Accelerator(HWND hwnd)
 
 
 static struct __obj_list menu_list_1[] = {
-			L"Speed",		&pDefIcon, 				dummy,
-		L"Hello",		&pDefIcon, 				dummy,
-		L"Button",		&pDefIcon, 				dummy,
-		L"Checkbox",		&pDefIcon, 				dummy,
-		L"Radiobox",		&pDefIcon, 				dummy,
-		L"Textbox",		&pDefIcon, 				dummy,
+			L"Speed",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
+		L"Hello",		app_1,		NULL, 	 	RGB_WHITE,			dummy,
+		L"Button",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
+		L"Checkbox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
+		L"Radiobox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
+		L"Textbox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
 
-		//L"Speed",		NULL, 	L"A", 	RGB_WHITE,			App_GUI_DEMO_Hello,
-		//L"Hello",		NULL,	  L"B", RGB_WHITE,				App_GUI_Graphics_Accelerator,
-		////  	L"Hello",		NULL,	  L"B", RGB_WHITE,				dummy,
+		L"Speed",		NULL, 	L"A", 	RGB_WHITE,			App_GUI_DEMO_Hello,
+		L"Hello",		NULL,	  L"B", RGB_WHITE,				App_GUI_Graphics_Accelerator,
+		//  	L"Hello",		NULL,	  L"B", RGB_WHITE,				dummy,
 		////		L"Button",		NULL,	  L"C",RGB_WHITE, 				App_GUI_Climate_Cabinet,
 
 		//L"Button",		NULL,	  L"C", RGB_WHITE,				App_GUI_ShowWave,
