@@ -213,6 +213,7 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\res\res_slogan.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\res\tiger_jpg.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\x_obj.cpp" />
+    <ClCompile Include="..\GUI_App\GUI_Tutorial_App\GUI_DEMO_RotateIcon.c" />
     <ClCompile Include="..\X_GUI\resource\ASCII_20_4BPP.c" />
     <ClCompile Include="..\X_GUI\resource\ASCII_24_4BPP.c" />
     <ClCompile Include="..\X_GUI\resource\CONTROL_60_4BPP.c" />
@@ -272,6 +273,7 @@
     <ClCompile Include="..\X_GUI_SIM_Board_App.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\X_GUI_SIM_Tutorial_App.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GUI_App\GUI_DEMO\CListMenu.h">
