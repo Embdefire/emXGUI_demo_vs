@@ -53,8 +53,8 @@ static void CreateSlogan(HDC hdc, const RECT *lprc, HWND hwnd)
 	RECT rc;
 	JPG_DEC *dec;
 
-	wchar_t *p_header;
-	wchar_t *p_string;
+	const wchar_t *p_header;
+	const wchar_t *p_string;
 
 	if (slogan_flag)
 	{
