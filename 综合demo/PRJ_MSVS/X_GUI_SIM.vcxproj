@@ -18,23 +18,23 @@
     <SccProjectName />
     <SccLocalPath />
     <ProjectGuid>{7AAD7994-4310-4C79-8708-05D41EF5F381}</ProjectGuid>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>emXGUI_Demo</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -214,6 +214,14 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\res\tiger_jpg.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\x_obj.cpp" />
     <ClCompile Include="..\GUI_App\GUI_Tutorial_App\GUI_DEMO_RotateIcon.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_Button.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_CheckBox.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_GroupBox.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_ListBox.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_ProgressBar.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_RadioBox.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_ScrollBar.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_TextBox.c" />
     <ClCompile Include="..\X_GUI\resource\ASCII_20_4BPP.c" />
     <ClCompile Include="..\X_GUI\resource\ASCII_24_4BPP.c" />
     <ClCompile Include="..\X_GUI\resource\CONTROL_60_4BPP.c" />

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{507e08cd-8406-4cce-8075-ab1da82efe18}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{f4c8e793-7a64-4704-98a1-dd92878ceadd}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{e2deb7f7-c6e2-4640-8f37-9222a7972b63}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="X_GUI">
+      <UniqueIdentifier>{fc2aa861-1169-4afc-90b3-9211fc000cd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="X_GUI_Drv">
+      <UniqueIdentifier>{74fe7687-73a6-4ca1-aa15-1b71734021fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI_App">
+      <UniqueIdentifier>{64787fb4-b6c5-43b0-b239-805ba6aca3d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="X_GUI_Arch">
+      <UniqueIdentifier>{0901bb51-2aaa-4aec-b4bf-6c6f3605e4ab}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\X_GUI_SIM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_Drv\DisplayDev.c">
+      <Filter>X_GUI_Drv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_Drv\GUI_Drv.c">
+      <Filter>X_GUI_Drv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_Drv\KeyDev_WIN32.c">
+      <Filter>X_GUI_Drv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_Drv\MouseDev_WIN32.c">
+      <Filter>X_GUI_Drv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GUI_App\GUI_App.c">
+      <Filter>GUI_App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Button.c">
+      <Filter>GUI_App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_Arch\Resource\xft_font\GB2312_16_4BPP.c">
+      <Filter>X_GUI_Arch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_Arch\GUI_Arch.c">
+      <Filter>X_GUI_Arch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_Arch\GUI_GPU.c">
+      <Filter>X_GUI_Arch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_Arch\OS_Options\X_GUI_WIN32.c">
+      <Filter>X_GUI_Arch</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\X_GUI\def.h">
+      <Filter>X_GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\X_GUI\emXGUI.h">
+      <Filter>X_GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\X_GUI\emXGUI_Arch.h">
+      <Filter>X_GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\X_GUI\GUI_Font_XFT.h">
+      <Filter>X_GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\X_GUI\x_libc.h">
+      <Filter>X_GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\X_GUI_Drv\GUI_Drv_Cfg.h">
+      <Filter>X_GUI_Drv</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="X_GUI_SIM.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

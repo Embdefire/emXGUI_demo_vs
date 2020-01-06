@@ -52,9 +52,6 @@ typedef	struct
 	U8  data[4];
 }xft_chr_info;
 
-
-typedef	int (FN_XFT_GetData)(void *buf,int offset,int size,LONG lParam);
-
 typedef struct __xft_obj xft_obj;
 
 /*===================================================================================*/

@@ -52,55 +52,48 @@ extern void App_GUI_Tutorial_DEMO(void);
 
 
 
-static struct __obj_list menu_list_1[] = {
-    //	L"Speed",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
-    //L"Hello",		app_1,		NULL, 	 	RGB_WHITE,			dummy,
-    //L"Button",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
-    //L"Checkbox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
-    //L"Radiobox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
-    //L"Textbox",		app_1, 		NULL,	 	RGB_WHITE,			dummy,
+static const struct __obj_list menu_list_1[] = {
 
-    L"Speed",		NULL, 	L"A", 	RGB_WHITE,			App_LED_DIALOG,
-    L"Hello",		NULL,	  L"B", RGB_WHITE,				App_GUI_DEMO,
-        L"Hello",		NULL,	  L"B", RGB_WHITE,				App_GUI_Tutorial_DEMO,
-        //		L"Button",		NULL,	  L"C",RGB_WHITE, 				App_GUI_Climate_Cabinet,
+		L"Speed",		NULL,  	  L"A", 				App_LED_DIALOG,
+		L"Hello",		NULL,	  L"B", 				App_GUI_DEMO,
+        L"Hello",		NULL,	  L"B", 				App_GUI_Tutorial_DEMO,
 
-        L"Button",		NULL,	  L"C", RGB_WHITE,				dummy,
+        L"Button",		NULL,	  L"C", 				dummy,
 
-        L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
-        L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
-        L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
+        L"Checkbox",	NULL, 	  L"D", 				dummy,
+        L"Radiobox",	NULL,     L"E", 				dummy,
+        L"Textbox",		NULL,	  L"F", 				dummy,
 
-        L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
-        L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
-        L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
-        L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
+        L"Speed",		NULL,	  L"G", 				dummy,
+        L"Hello",		NULL,	  L"H", 				dummy,
+        L"Button",		NULL,	  L"I", 				dummy,
+        L"Checkbox",	NULL,	  L"J", 				dummy,
 
-        L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
-        L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
-        L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
+        L"Checkbox",	NULL, 	  L"D", 				dummy,
+        L"Radiobox",	NULL,     L"E", 				dummy,
+        L"Textbox",		NULL,	  L"F", 				dummy,
 
-        L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
-        L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
-        L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
-        L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
-            L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
-        L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
-        L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
+        L"Speed",		NULL,	  L"G", 			    dummy,
+        L"Hello",		NULL,	  L"H", 				dummy,
+        L"Button",		NULL,	  L"I", 				dummy,
+        L"Checkbox",	NULL,	  L"J", 				dummy,
+        L"Checkbox",	NULL, 	  L"D", 				dummy,
+        L"Radiobox",	NULL,     L"E", 				dummy,
+        L"Textbox",	    NULL,	  L"F", 				dummy,
 
-        L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
-        L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
-        L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
-        L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
+        L"Speed",		NULL,	  L"G", 				dummy,
+        L"Hello",		NULL,	  L"H", 				dummy,
+        L"Button",	    NULL,	  L"I", 				dummy,
+        L"Checkbox",	NULL,	  L"J", 				dummy,
 
-        L"Checkbox",	NULL, 	L"D", RGB_WHITE,				dummy,
-        L"Radiobox",	NULL,   L"E", RGB_WHITE,				dummy,
-        L"Textbox",	NULL,	  L"F", RGB_WHITE,				dummy,
+        L"Checkbox",	NULL,	  L"D", 				dummy,
+        L"Radiobox",	NULL,	  L"E", 				dummy,
+        L"Textbox",		NULL,	  L"F", 				dummy,
 
-        L"Speed",		NULL,	  L"G", RGB_WHITE,				dummy,
-        L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
-        L"Button",	  NULL,	  L"I", 	RGB_WHITE,			dummy,
-        L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
+        L"Speed",		NULL,	  L"G",					dummy,
+        L"Hello",		NULL,	  L"H",					dummy,
+        L"Button",		NULL,	  L"I", 				dummy,
+        L"Checkbox",	NULL,	  L"J",					dummy,
 
         NULL,	NULL,	NULL,NULL, NULL,//结束标志!
 
@@ -399,7 +392,7 @@ void	GUI_DEMO_Desktop(void)
         /*WS_MEMSURFACE|*/WS_CLIPCHILDREN,
 
         0, 0, GUI_XSIZE, 400,
-        GetDesktopWindow(), NULL, NULL, NULL);
+		NULL, NULL, NULL, NULL);
 
     //显示主窗口
     ShowWindow(hwnd, SW_SHOW);

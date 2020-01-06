@@ -209,7 +209,7 @@ void CListMenu::draw_icon_obj(HDC hdc, struct __x_obj_item *obj, u32 flag, u32 s
 
 	if (bmp != NULL)
 	{
-		icon_color = obj_tbl[obj->id].color;
+		//icon_color = obj_tbl[obj->id].color;
 
 		/* 显示APP对应的bmp图标 */
 		BMP_GetInfo(&info, bmp);
@@ -218,12 +218,13 @@ void CListMenu::draw_icon_obj(HDC hdc, struct __x_obj_item *obj, u32 flag, u32 s
 		y = rc.y + (((int)rc.h - (int)info.Height) / 2);
 		BMP_Draw(hdc, x, y, bmp, NULL);
 
-		SetTextColor(hdc, MapXRGB8888(hdc, icon_color));
+		SetTextColor(hdc, MapRGB(hdc, 255, 255, 255));
+		//SetTextColor(hdc, MapXRGB8888(hdc, icon_color));
 
 	}
 	else if (icon != NULL)
 	{
-		icon_color = obj_tbl[obj->id].color;
+		//icon_color = obj_tbl[obj->id].color;
 		/* 显示APP对应的字体图标 */
 		SetFont(hdc, iconFont);
 
@@ -232,8 +233,8 @@ void CListMenu::draw_icon_obj(HDC hdc, struct __x_obj_item *obj, u32 flag, u32 s
 		rc0.x = rc.x;
 		rc0.y = rc.y;
 
-		//SetTextColor(hdc,MapRGB(hdc,255,255,255));
-		SetTextColor(hdc, MapXRGB8888(hdc, icon_color));
+		SetTextColor(hdc,MapRGB(hdc,255,255,255));
+		//SetTextColor(hdc, MapXRGB8888(hdc, icon_color));
 
 
 		DrawText(hdc, (LPCWSTR)icon, -1, &rc0, DT_VCENTER | DT_CENTER);

@@ -87,7 +87,7 @@ static LRESULT	WinProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 			rc.y = rc.h * 5 / 10;
 			rc.w = (rc.w < rc.h ? rc.w : rc.h) * 3 / 10;
 
-			AA_DrawCircle(hdc,rc.x,rc.y,rc.w); //绘制一个空心圆.
+			DrawCircle(hdc,rc.x,rc.y,rc.w); //绘制一个空心圆.
 			//AA_DrawCircle(hdc, 80, 120, 50); //绘制一个空心圆.（固定位置）
 
 			GetClientRect(hwnd, &rc); //获得窗口的客户区矩形.
@@ -97,7 +97,7 @@ static LRESULT	WinProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 			rc.w = rc.w * 4 / 10;
 			rc.h = rc.h * 2 / 10;
 
-			AA_DrawLine(hdc,rc.x,rc.y,rc.x + rc.w ,rc.y + rc.h); //画线
+			Line(hdc,rc.x,rc.y,rc.x + rc.w ,rc.y + rc.h); //画线
 
 			SetBrushColor(hdc,MapRGB(hdc,0,200,0)); //设置画刷颜色(用于填充).
 			
