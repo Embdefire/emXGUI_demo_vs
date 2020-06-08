@@ -18,23 +18,23 @@
     <SccProjectName />
     <SccLocalPath />
     <ProjectGuid>{7AAD7994-4310-4C79-8708-05D41EF5F381}</ProjectGuid>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>emXGUI_Demo</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -156,10 +156,11 @@
       </HeapReserveSize>
     </Link>
     <PostBuildEvent>
-      <Command>editbin /SUBSYSTEM:CONSOLE $(OUTDIR)\$(ProjectName).exe</Command>
+      <Command>editbin /SUBSYSTEM:CONSOLE $(OUTDIR)$(ProjectName).exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\GUI_App\GUI_Board_App\leddlg.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\CListMenu.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
@@ -167,6 +168,7 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_BMP_Speed.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Checkbox.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_CustomWidget.c" />
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Desktop.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Drawbitmap.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Drawbitmap_Extern.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_DrawGIF.c" />
@@ -211,6 +213,15 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\res\res_slogan.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\res\tiger_jpg.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\x_obj.cpp" />
+    <ClCompile Include="..\GUI_App\GUI_Tutorial_App\GUI_DEMO_RotateIcon.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_Button.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_CheckBox.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_GroupBox.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_ListBox.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_ProgressBar.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_RadioBox.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_ScrollBar.c" />
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_TextBox.c" />
     <ClCompile Include="..\X_GUI\resource\ASCII_20_4BPP.c" />
     <ClCompile Include="..\X_GUI\resource\ASCII_24_4BPP.c" />
     <ClCompile Include="..\X_GUI\resource\CONTROL_60_4BPP.c" />
@@ -266,6 +277,11 @@
     <ClCompile Include="..\X_GUI_Arch\OS_Options\X_GUI_WIN32.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /Zm1000   /Zm1000 </AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\X_GUI_SIM_App.cpp" />
+    <ClCompile Include="..\X_GUI_SIM_Board_App.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_SIM_Tutorial_App.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GUI_App\GUI_DEMO\CListMenu.h">
@@ -276,6 +292,7 @@
     <ClInclude Include="..\GUI_App\GUI_DEMO\list.h" />
     <ClInclude Include="..\GUI_App\GUI_DEMO\x_obj.h" />
     <ClInclude Include="..\X_GUI\emXGUI_JPEG.h" />
+    <ClInclude Include="..\X_GUI\Web_Color.h" />
     <ClInclude Include="..\X_GUI_Arch\Inc\GUI_Drv.h" />
     <ClInclude Include="..\X_GUI_Drv\gui_drv_cfg.h" />
     <ClInclude Include="resource.h" />

@@ -133,22 +133,22 @@ static void App_GUI_Graphics_Accelerator(HWND hwnd)
 static struct __obj_list menu_list_1[] = {
 
 	L"Speed",		NULL, 	L"A", 				App_GUI_DEMO_Hello,
-		L"Hello",		NULL,	  L"B", 				App_GUI_Graphics_Accelerator,
-		//  	L"Hello",		NULL,	  L"B", 				dummy,
-		//		L"Button",		NULL,	  L"C", 				App_GUI_Climate_Cabinet,
+	L"Hello",		NULL,	  L"B", 				App_GUI_Graphics_Accelerator,
+	//  	L"Hello",		NULL,	  L"B", RGB_WHITE,				dummy,
+	//		L"Button",		NULL,	  L"C", RGB_WHITE,				App_GUI_Climate_Cabinet,
 
-				L"Button",		NULL,	  L"C", 				App_GUI_ShowWave,
+	L"Button",		NULL,	  L"C", 				App_GUI_ShowWave,
 
-				L"Checkbox",	NULL, 	L"D", 				dummy,
-				L"Radiobox",	NULL,   L"E", 				dummy,
-				L"Textbox",	NULL,	  L"F", 				dummy,
+	L"Checkbox",	NULL, 	L"D", 				dummy,
+	L"Radiobox",	NULL,   L"E", 			dummy,
+	L"Textbox",	NULL,	  L"F", 				dummy,
 
-				//    L"Speed",		NULL,	  L"G", 				dummy,
-				//    L"Hello",		NULL,	  L"H", 				dummy,
-				//    L"Button",	  NULL,	  L"I", 				dummy,
-				//    L"Checkbox",	NULL,	  L"J", 				dummy,
+	//    L"Speed",		NULL,	  L"G",RGB_WHITE, 				dummy,
+	//    L"Hello",		NULL,	  L"H", RGB_WHITE,				dummy,
+	//    L"Button",	  NULL,	  L"I", RGB_WHITE,				dummy,
+	//    L"Checkbox",	NULL,	  L"J", RGB_WHITE,				dummy,
 
-						NULL,	NULL,	NULL, NULL,//结束标志!
+	NULL,	NULL,NULL,	NULL, NULL,//结束标志!
 
 };
 
@@ -229,14 +229,21 @@ static	LRESULT	WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		//			rc.w =rc0.w;
 		//			rc.h =200;
 
+
+    ///* 设置字符 */
+    //wnd = CreateWindow(TEXTBOX, L"A", BS_FLAT | BS_NOTIFY | WS_OWNERDRAW | WS_VISIBLE,
+    //  0, rc.h * 1 / 3, 70, 70, hwnd, ICON_VIEWER_ID_PREV, NULL, NULL);
+    //SetWindowFont(wnd, controlFont); //设置控件窗口字体.
+
+
 					//ListMenu控件，需要在创建时传入一个 list_menu_cfg_t 的结构体参数.
 		cfg.list_objs = menu_list_1; //指定list列表.
 		cfg.x_num = 3; //水平项数.
 		cfg.y_num = 1; //垂直项数.
 		CreateWindow(&wcex_ListMenu,
 			L"ListMenu1",
-			WS_VISIBLE | LMS_ICONFRAME,
-			rc.x + 100, rc.y + 10, rc.w - 200, rc.h - 10,
+			WS_VISIBLE | LMS_ICONFRAME| LMS_ICONINNERFRAME| LMS_TOUCHSHADOW,
+			rc.x + 100, rc.y + 70, rc.w - 200, rc.h - 80,
 			hwnd,
 			ID_LIST_1,
 			NULL,
@@ -244,12 +251,12 @@ static	LRESULT	WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 		/* 上一步按钮 */
 		wnd = CreateWindow(BUTTON, L"A", BS_FLAT | BS_NOTIFY | WS_OWNERDRAW | WS_VISIBLE,
-			0, rc.h * 1 / 3, 70, 70, hwnd, ICON_VIEWER_ID_PREV, NULL, NULL);
+			0, (rc.h-80)/ 2, 70, 70, hwnd, ICON_VIEWER_ID_PREV, NULL, NULL);
 		SetWindowFont(wnd, controlFont); //设置控件窗口字体.
 
 		 /* 下一步按钮 */
 		wnd = CreateWindow(BUTTON, L"B", BS_FLAT | BS_NOTIFY | WS_OWNERDRAW | WS_VISIBLE,
-			rc.w - 65, rc.h * 1 / 3, 70, 70, hwnd, ICON_VIEWER_ID_NEXT, NULL, NULL);
+			rc.w - 65, (rc.h - 80) / 2, 70, 70, hwnd, ICON_VIEWER_ID_NEXT, NULL, NULL);
 		SetWindowFont(wnd, controlFont); //设置控件窗口字体.
 
 		SetTimer(hwnd, 1, 50, TMR_START, NULL);
@@ -310,12 +317,20 @@ static	LRESULT	WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 	case WM_PAINT:
 	{
-		//			HDC hdc;
+		HDC hdc;
 		PAINTSTRUCT ps;
-		//			RECT rc;
+		RECT rc;
 		//			WCHAR wbuf[128];
+    GetClientRect(hwnd, &rc);
 
-		BeginPaint(hwnd, &ps);
+    hdc = BeginPaint(hwnd, &ps);
+
+    SetFont(hdc, GB2312_32_Font);
+
+    SetTextColor(hdc, MapRGB(hdc, 255, 255, 255));
+    rc.y += 20;
+
+    DrawText(hdc, L"emXGUI@Embedfire STM32F429 ", -1, &rc, DT_CENTER);
 
 		EndPaint(hwnd, &ps);
 		////
@@ -444,8 +459,8 @@ void	GUI_DEMO_IconViewer(void)
 		//								/*WS_MEMSURFACE|*/WS_CAPTION|WS_DLGFRAME|WS_BORDER|WS_CLIPCHILDREN,
 		/*WS_MEMSURFACE|*/WS_CLIPCHILDREN,
 
-		0, 100, GUI_XSIZE, 300,
-		GetDesktopWindow(), NULL, NULL, NULL);
+		0, 0, GUI_XSIZE, 400,
+		NULL, NULL, NULL, NULL);
 
 	//显示主窗口
 	ShowWindow(hwnd, SW_SHOW);

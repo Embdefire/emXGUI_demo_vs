@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{61054ea5-69c1-4aec-b265-1600dadcbea4}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{fa668906-e321-4ed2-82db-c2f3f288fe57}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
@@ -33,6 +29,19 @@
     </Filter>
     <Filter Include="data\pic">
       <UniqueIdentifier>{bd1d03ee-a929-4635-9d37-2a9016408df8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI_Board_App">
+      <UniqueIdentifier>{31543961-2848-4763-8224-b38f93453b71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI_Tutorial_App">
+      <UniqueIdentifier>{aaa92995-662c-4012-bb86-ebff008b2bb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{61054ea5-69c1-4aec-b265-1600dadcbea4}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="X_GUI\OEM_Face">
+      <UniqueIdentifier>{30ad70aa-0604-484f-8d68-c6565a329c8d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +243,48 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_ShowWave.cpp">
       <Filter>GUI_App</Filter>
     </ClCompile>
+    <ClCompile Include="..\GUI_App\GUI_Board_App\leddlg.c">
+      <Filter>GUI_Board_App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Desktop.c">
+      <Filter>GUI_Board_App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_SIM_App.cpp">
+      <Filter>SIM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_SIM_Board_App.cpp">
+      <Filter>SIM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GUI_App\GUI_Tutorial_App\GUI_DEMO_RotateIcon.c">
+      <Filter>GUI_Tutorial_App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI_SIM_Tutorial_App.cpp">
+      <Filter>SIM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_Button.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_CheckBox.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_GroupBox.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_ListBox.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_ProgressBar.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_RadioBox.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_ScrollBar.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_TextBox.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -283,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="..\GUI_App\GUI_DEMO\x_obj.h">
       <Filter>GUI_App</Filter>
+    </ClInclude>
+    <ClInclude Include="..\X_GUI\Web_Color.h">
+      <Filter>X_GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

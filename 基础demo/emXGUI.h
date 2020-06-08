@@ -1,5 +1,14 @@
-#ifndef	__EMXGUI_H_20181120_0950__
-#define	__EMXGUI_H_20181120_0950__
+
+/*----------------------------------------------------------------------------/
+/ emXGUI - 通用图形界面组件
+/-----------------------------------------------------------------------------/
+/
+/ Copyright (C) 2006-2018, Liuwei, all right reserved.
+/...
+/----------------------------------------------------------------------------*/
+
+#ifndef	__EMXGUI_H_20191127_1602__
+#define	__EMXGUI_H_20191127_1602__
 
 #ifdef	__cplusplus
 extern	"C"{
@@ -87,43 +96,48 @@ typedef	struct	tagPOINT
 
 typedef	struct tagRECT
 {
-	int x,y,w,h;
-}RECT,*LPRECT;
-
+	int  x,y,w,h;
+}RECT;
 
 /*============================================================================*/
 
 typedef	void	(*TIMERPROC)(HWND hwnd,UINT uMsg,UINT idEvent,U32 dwTime);
 typedef LRESULT (*WNDPROC)(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 typedef LRESULT	(*DLGPROC)(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-typedef void	(*BKGNDERASEPROC)(HDC hdc,const RECT *lprc,HWND hwnd);
 typedef BOOL 	(*WNDENUMPROC)(HWND hwnd, LPARAM lParam);
+typedef BOOL	(*WNDERASEBKGND)(HDC hdc,const RECT *lprc,HWND hwnd);
 
 
 /*============================================================================*/
 
-#if 1
+#if 0
 /* Graphics Modes */
 #define GM_COMPATIBLE       1
 #define GM_ADVANCED         2
 #define GM_LAST             2
 
 /* Draw Flags*/
-#define	ANTI_ALIAS_FLAG		(1<<0)		//抗锯齿标记
-#define	FILTER_BITMAP_FLAG	(1<<1)		//位图像素过滤
+//#define	ANTI_ALIAS_FLAG		(1<<0)		//抗锯齿标记
+//#define	FILTER_BITMAP_FLAG	(1<<1)		//位图像素过滤
+#endif
 
 /* Text Alignment Options */
 #define TA_NOUPDATECP        0
 #define TA_UPDATECP          1
 
-#define TA_LEFT              0
-#define TA_RIGHT             2
-#define TA_CENTER            6
+#define TA_TOP              (0<<0)  //垂直顶部对齐.
+#define TA_BOTTOM           (1<<0)  //垂直底部对齐.
+#define	TA_CENTER			(2<<0)  //垂直中间对齐.
+#define TA_V_MASK			(3<<0)
 
-#define TA_TOP               0
-#define TA_BOTTOM            8
-#define TA_BASELINE          24
-#define TA_RTLREADING        256
+#define TA_LEFT             (0<<2)  //水平居左对齐.
+#define TA_RIGHT            (1<<2)  //水平居右对齐.
+#define TA_VCENTER          (2<<2)  //水平居中对齐.
+#define	TA_H_MASK			(3<<2)
+
+#define TA_BASELINE         (1<<4)
+#define TA_RTLREADING       (1<<5)
+/*
 #define TA_MASK       (TA_BASELINE+TA_CENTER+TA_UPDATECP+TA_RTLREADING)
 
 #define VTA_BASELINE TA_BASELINE
@@ -132,26 +146,29 @@ typedef BOOL 	(*WNDENUMPROC)(HWND hwnd, LPARAM lParam);
 #define VTA_CENTER   TA_CENTER
 #define VTA_BOTTOM   TA_RIGHT
 #define VTA_TOP      TA_LEFT
-#endif
+*/
+
+
 
 
 /*
  * DrawText() Format Flags
  */
-#define DT_TOP          (0<<0)  //垂直顶部对齐
-#define DT_BOTTOM       (1<<0)  //垂直底部对齐
-#define DT_VCENTER      (2<<0)  //垂直中间对齐
-#define DT_ALIGN_MASK_V (3<<0)
+#define DT_TOP          (0<<0)  //垂直顶部对齐.
+#define DT_BOTTOM       (1<<0)  //垂直底部对齐.
+#define DT_VCENTER      (2<<0)  //垂直中间对齐.
+#define DT_ALIGN_MASK_V (3<<0)  //垂直对齐掩码.
 
-#define DT_LEFT         (0<<2)  //水平居左对齐
-#define DT_RIGHT        (1<<2)  //水平居右对齐
-#define DT_CENTER       (2<<2)  //水平居中对齐
-#define DT_ALIGN_MASK_H (3<<2)
+#define DT_LEFT         (0<<2)  //水平居左对齐.
+#define DT_RIGHT        (1<<2)  //水平居右对齐.
+#define DT_CENTER       (2<<2)  //水平居中对齐.
+#define DT_ALIGN_MASK_H (3<<2)  //水平对齐掩码.
 
-#define DT_SINGLELINE   (1<<4)  //单行模式
-#define DT_NOCLIP       (1<<5)  //不对字符进行剪切
-#define	DT_BORDER		(1<<6)	//是否绘制边框
-#define	DT_BKGND		(1<<7)	//是否绘制背景
+#define DT_SINGLELINE   (1<<4)  //单行模式.
+#define DT_NOCLIP       (1<<5)  //不对字符进行剪切.
+#define	DT_BORDER		(1<<6)	//是否绘制边框.
+#define	DT_BKGND		(1<<7)	//是否绘制背景.
+#define DT_WORDBREAK	(1<<8)  //当字符超出矩形边界时,自动换行(注:在多行模式+DT_LEFT+DT_TOP模式下有效).
 
 typedef struct
 {
@@ -161,8 +178,8 @@ typedef struct
     int	   iYOffset;   // 字符串在矩形内的 Y 坐标偏移。
 } DRAWTEXTPARAMS;
 
+#if 0 ////新版不需这些操作了...
 
-/* Ternary raster operations */
 #define SRCCOPY             (UINT)0x00CC0020 /* dest = source                   */
 #define SRCPAINT            (UINT)0x00EE0086 /* dest = source OR dest           */
 #define SRCAND              (UINT)0x008800C6 /* dest = source AND dest          */
@@ -179,9 +196,14 @@ typedef struct
 #define BLACKNESS           (UINT)0x00000042 /* dest = BLACK                    */
 #define WHITENESS           (UINT)0x00FF0062 /* dest = WHITE                    */
 
-/* Quaternary raster codes */
+
 #define MAKEROP4(fore,back) (UINT)((((back) << 8) & 0xFF000000) | (fore))
 
+#else ////
+
+#define SRCCOPY 			(UINT)0
+
+#endif
 /*============================================================================*/
 
 #define	GUI_XSIZE		GetSystemMetrics(SM_CXSCREEN)
@@ -293,25 +315,25 @@ typedef union
 
 /*============================================================================*/
 
-#define	COLOR_FORMAT_INDEX1		1
-#define	COLOR_FORMAT_INDEX2		2
-#define	COLOR_FORMAT_INDEX4		3
-#define	COLOR_FORMAT_INDEX8		4
-#define	COLOR_FORMAT_XRGB2222	5
-#define	COLOR_FORMAT_ARGB2222	6
-#define	COLOR_FORMAT_RGB332		7
-#define	COLOR_FORMAT_RGB565		8
-#define	COLOR_FORMAT_XRGB1555	9
-#define	COLOR_FORMAT_ARGB1555	10
-#define	COLOR_FORMAT_XRGB4444	11
-#define	COLOR_FORMAT_ARGB4444	12
-#define	COLOR_FORMAT_RGB888		13
-#define	COLOR_FORMAT_XRGB8888	14
-#define	COLOR_FORMAT_ARGB8888	15
-#define	COLOR_FORMAT_ALPHA1		16
-#define	COLOR_FORMAT_ALPHA2		17
-#define	COLOR_FORMAT_ALPHA4		18
-#define	COLOR_FORMAT_ALPHA8		19
+#define	COLOR_FORMAT_LUT1		1  //1位索引色.
+#define	COLOR_FORMAT_LUT2		2  //2位索引色.
+#define	COLOR_FORMAT_LUT4		3  //4位索引色.
+#define	COLOR_FORMAT_LUT8		4  //8位索引色.
+#define	COLOR_FORMAT_XRGB2222	5  //XXRRGGBB.
+#define	COLOR_FORMAT_ARGB2222	6  //AARRGGBB.
+#define	COLOR_FORMAT_RGB332		7  //RRRGGGBB.
+#define	COLOR_FORMAT_RGB565		8  //RRRRRGGGGGGBBBBB
+#define	COLOR_FORMAT_XRGB1555	9  //XRRRRRGGGGGBBBBB
+#define	COLOR_FORMAT_ARGB1555	10 //ARRRRRGGGGGBBBBB
+#define	COLOR_FORMAT_XRGB4444	11 //XXXXRRRRGGGGBBBB
+#define	COLOR_FORMAT_ARGB4444	12 //AAAARRRRGGGGBBBB
+#define	COLOR_FORMAT_RGB888		13 //RRRRRRRRGGGGGGGGBBBBBBBB
+#define	COLOR_FORMAT_XRGB8888	14 //XXXXXXXXRRRRRRRRGGGGGGGGBBBBBBBB
+#define	COLOR_FORMAT_ARGB8888	15 //AAAAAAAARRRRRRRRGGGGGGGGBBBBBBBB
+#define	COLOR_FORMAT_AL1		16 //1位Alpha/灰度.
+#define	COLOR_FORMAT_AL2		17 //2位Alpha/灰度.
+#define	COLOR_FORMAT_AL4		18 //4位Alpha/灰度.
+#define	COLOR_FORMAT_AL8		19 //8位Alpha/灰度.
 
 #define	RGB332(r,g,b)		((r&0x7)<<5)|((g&0x7)<<2)|(b&0x3)
 #define	RGB565(r,g,b)		((r&0x1F)<<11)|((g&0x3F)<<5)|(b&0x1F)
@@ -360,10 +382,10 @@ typedef union
 
 typedef enum
 {
-	BM_LUT1	= COLOR_FORMAT_INDEX1,
-	BM_LUT2	= COLOR_FORMAT_INDEX2,
-	BM_LUT4	= COLOR_FORMAT_INDEX4,
-	BM_LUT8	= COLOR_FORMAT_INDEX8,
+	BM_LUT1	= COLOR_FORMAT_LUT1,
+	BM_LUT2	= COLOR_FORMAT_LUT2,
+	BM_LUT4	= COLOR_FORMAT_LUT4,
+	BM_LUT8	= COLOR_FORMAT_LUT8,
 	BM_RGB332 = COLOR_FORMAT_RGB332,
 	BM_RGB565 = COLOR_FORMAT_RGB565,
 	BM_XRGB1555 = COLOR_FORMAT_XRGB1555,
@@ -372,21 +394,13 @@ typedef enum
 	BM_RGB888   = COLOR_FORMAT_RGB888,
 	BM_XRGB8888 = COLOR_FORMAT_XRGB8888,
 	BM_ARGB8888 = COLOR_FORMAT_ARGB8888,
-	BM_AL1 = COLOR_FORMAT_ALPHA1,
-	BM_AL2 = COLOR_FORMAT_ALPHA2,
-	BM_AL4 = COLOR_FORMAT_ALPHA4,
-	BM_AL8 = COLOR_FORMAT_ALPHA8,
+	BM_AL1 = COLOR_FORMAT_AL1,
+	BM_AL2 = COLOR_FORMAT_AL2,
+	BM_AL4 = COLOR_FORMAT_AL4,
+	BM_AL8 = COLOR_FORMAT_AL8,
 
 }BITMAP_FORMAT;
 
-#define	BM_INDEX1	BM_LUT1
-#define	BM_INDEX2	BM_LUT2
-#define	BM_INDEX4	BM_LUT4
-#define	BM_INDEX8	BM_LUT8
-#define	BM_ALPHA1	BM_AL1
-#define	BM_ALPHA2	BM_AL2
-#define	BM_ALPHA4	BM_AL4
-#define	BM_ALPHA8	BM_AL8
 
 typedef enum
 {   
@@ -410,12 +424,12 @@ typedef struct tagBITMAPINFO
 									   
 typedef struct tagBITMAP
 {
-    U32      Format;    /* 位图格式. */
-    U32      Width;     /* 位图宽度(行). */
-    U32      Height;    /* 位图高度(列). */
-    U32      WidthBytes;/* 位图图像每一行的字节数. */
-    LPVOID   Bits;      /* 指向位图数据. */
-    COLORREF *LUT;      /* 颜色表,只有索引位图,BM_ALPHA4,BM_ALPHA8格式时才用到. */
+    U32      Format;     //位图格式.
+    U32      Width;      //位图宽度(行).
+    U32      Height;     //位图高度(列).
+    U32      WidthBytes; //位图图像每一行的字节数.
+    LPVOID   Bits;       //指向位图数据.
+    COLORREF *LUT;       //颜色表,只有索引位图,BM_ALPHA4,BM_ALPHA8格式时才用到.
 } BITMAP;	
 
 /*============================================================================*/
@@ -504,42 +518,53 @@ typedef	struct	tagIMAGE_INFO
 
 /*============================================================================*/
 //FONT_ATTR Mode
-
+#if 0
 #define	FT_DEFAULT		0x0000
 #define	FT_ITALIC		(1<<1)	//斜体
 #define	FT_BOLD			(1<<2)	//粗体
 #define	FT_UNDERLINE	(1<<3)	//下划线
 #define	FT_OUTLINE		(1<<4)	//描边
 #define	FT_HATCH		(1<<5)	//阴影
+#endif
 
-typedef struct	__FONT_INFO
+////FONT_INFO.Flag
+#define	FT_FIX		(1<<0) //等宽字体.
+#define	FT_VAR		(1<<1) //非等宽字体.
+#define	FT_SMOOTH	(1<<2) //平滑字体.
+
+typedef struct //字体信息结构体.
 {
-	U16 Flag;
-	U16	Height;
+	U16 Flag;   //字体标记.
+	S16	Height; //字体高度.
+	S16 Width;  //字体宽度.
+	U16 Rsv;    //保留.
+
 }FONT_INFO;
 
-typedef struct	__CHAR_INFO
+typedef struct //字符信息结构体.
 {
-	U16 Width,Height;
-	U16 X0,Y0,X1,Y1;
+	S16 Width,Height; //字符的宽度和高度.
+	S16 X0,Y0; //字符起始X,Y坐标.
+	S16 X1,Y1; //字符结束X,Y坐标.
 }CHAR_INFO;
 
 
 typedef	BOOL (FN_CreateFont)(const void **handler,const void *pdata);
 typedef	BOOL (FN_DeleteFont)(const void *handler);
-typedef	BOOL (FN_GetFontInfo)(const void *handler,FONT_INFO *ft_info);
+typedef	BOOL (FN_GetFontInfo)(const void *handler,FONT_INFO *fnt_info);
 typedef	BOOL (FN_GetCharInfo)(const void *handler,CHAR_INFO *chr_info,int chr);
 typedef	BOOL (FN_DrawChar)(const void *handler,HDC hdc,int x,int y,int chr,COLORREF color,CHAR_INFO *chr_info);
 
 
-typedef	struct __FONT_OPS
+typedef	struct //字体操作函数集结构体(回调函数).
 {	
-    FN_CreateFont   *pfCreateFont;
-    FN_DeleteFont   *pfDeleteFont;
-	FN_GetFontInfo	*pfGetFontInfo;
-	FN_GetCharInfo	*pfGetCharInfo;
-	FN_DrawChar		*pfDrawChar;
+    FN_CreateFont   *pfCreateFont;    //创建字体.
+    FN_DeleteFont   *pfDeleteFont;    //删除字体.
+	FN_GetFontInfo	*pfGetFontInfo;   //获得字体信息.
+	FN_GetCharInfo	*pfGetCharInfo;   //获得指定字符信息.
+	FN_DrawChar		*pfDrawChar;      //绘制单个指定字符.
 }FONT_OPS;
+
 
 /*============================================================================*/
 // 进度条增长方向.
@@ -584,6 +609,18 @@ typedef struct tagWNDCLASS{
 
 /*============================================================================*/
 
+typedef struct	tagNCPAINT_STRUCT{
+
+	S16 Hit;             // 光标在窗口中的位置.
+	U8  BorderSize;      // 小边框大小(宽度).
+	U8  DlgFrameSize;    // 大边框大小(宽度).
+	UINT Width,Height;   // 窗口的宽度和高度.
+	const WCHAR *pText;  // 标题文字.
+	RECT rcCaption;      // 标题框的矩形参数.
+	RECT rcCloseBox;     // "关闭"按钮的矩形参数.
+
+}NCPAINT_STRUCT;
+
 typedef struct tagPAINTSTRUCT {
     HDC         hdc;
     RECT        rcPaint;
@@ -591,15 +628,6 @@ typedef struct tagPAINTSTRUCT {
 
 } PAINTSTRUCT;
 
-/*============================================================================*/
-#if 0
-typedef struct tagDRAWITEMSTRUCT {
-    HWND        hwnd;
-    HDC         hDC;
-    UINT		ID;
-    RECT        rc;
-} DRAWITEMSTRUCT;
-#endif
 
 typedef struct tagDRAWITEM_HDR {
     HWND  hwnd;   /* 绘制的窗口对象.*/
@@ -633,7 +661,7 @@ typedef struct tagDLGTEMPLATE
 
 /*============================================================================*/
 /*
- * Virtual Keys, Standard Set
+ * 系统标准虚拟键值.
  */
 #define VK_LBUTTON        0x01
 #define VK_RBUTTON        0x02
@@ -798,98 +826,37 @@ typedef struct tagDLGTEMPLATE
 //#define MK_SHIFT            0x0008
 //#define MK_CONTROL          0x000C
 
-typedef struct tagMOUSEINPUT {
-    LONG  dx;
-    LONG  dy;
-    UINT  Data;
-    UINT  Flags;
-    UINT  Time;
-    UINT  ExtraInfo;
-} MOUSEINPUT;
 
 /*============================================================================*/
 
 typedef	struct tagMSG{
 
-	HWND    hwnd;    //目标窗口
-	UINT	message; //消息
-	WPARAM  wParam;  //参数0
-	LPARAM  lParam;  //参数1
-	LONG	ExtData; //扩展数据
-	UINT	time;	 //消息产生时间
+	HWND    hwnd;    //目标窗口.
+	UINT  	message; //消息码.
+	WPARAM  wParam;  //参数1.
+	LPARAM  lParam;  //参数2.
+	LONG	ExtData; //扩展数据.
 
 }MSG;
 
 
 /*============================================================================*/
+//通知消息头结构体.
 
 typedef struct tagNMHDR
 {
-    HWND  hwndFrom;
-    UINT  idFrom;
-    UINT  code;         // NM_ code
+    HWND  hwndFrom; //产生该消息的窗口对象句柄.
+    UINT  idFrom;   //产生该消息的窗口ID.
+    UINT  code;     //通知码.
 }NMHDR;
 
 /*============================================================================*/
 /*============================================================================*/
-#if 0
-/*
- * Color Types
- */
-#define CTLCOLOR_MSGBOX         0
-#define CTLCOLOR_EDIT           1
-#define CTLCOLOR_LISTBOX        2
-#define CTLCOLOR_BTN            3
-#define CTLCOLOR_DLG            4
-#define CTLCOLOR_SCROLLBAR      5
-#define CTLCOLOR_STATIC         6
-#define CTLCOLOR_MAX            7
-
-#define COLOR_SCROLLBAR         0
-#define COLOR_BACKGROUND        1
-#define COLOR_ACTIVECAPTION     2
-#define COLOR_INACTIVECAPTION   3
-#define COLOR_MENU              4
-#define COLOR_WINDOW            5
-#define COLOR_WINDOWFRAME       6
-#define COLOR_MENUTEXT          7
-#define COLOR_WINDOWTEXT        8
-#define COLOR_CAPTIONTEXT       9
-#define COLOR_ACTIVEBORDER      10
-#define COLOR_INACTIVEBORDER    11
-#define COLOR_APPWORKSPACE      12
-#define COLOR_HIGHLIGHT         13
-#define COLOR_HIGHLIGHTTEXT     14
-#define COLOR_BTNFACE           15
-#define COLOR_BTNSHADOW         16
-#define COLOR_GRAYTEXT          17
-#define COLOR_BTNTEXT           18
-#define COLOR_INACTIVECAPTIONTEXT 19
-#define COLOR_BTNHIGHLIGHT      20
-
-#define COLOR_3DDKSHADOW        21
-#define COLOR_3DLIGHT           22
-#define COLOR_INFOTEXT          23
-#define COLOR_INFOBK            24
-
-#define COLOR_HOTLIGHT                  26
-#define COLOR_GRADIENTACTIVECAPTION     27
-#define COLOR_GRADIENTINACTIVECAPTION   28
-
-#define COLOR_DESKTOP           COLOR_BACKGROUND
-#define COLOR_3DFACE            COLOR_BTNFACE
-#define COLOR_3DSHADOW          COLOR_BTNSHADOW
-#define COLOR_3DHIGHLIGHT       COLOR_BTNHIGHLIGHT
-#define COLOR_3DHILIGHT         COLOR_BTNHIGHLIGHT
-#define COLOR_BTNHILIGHT        COLOR_BTNHIGHLIGHT
-#endif
-
 
 /*
  * 窗口公共的风格标志(使用高16位,低16位保留给各控件作私有风格标志) / Common Window Styles
  */
 
-#define WS_OVERLAPPED       0x80000000UL // 可叠层的窗口,具备该属性的窗口可以相互叠层,桌面与主窗口默认是可以叠层的.
 #define WS_TRANSPARENT      0x40000000UL // 窗口有透明属性,不会被父窗口剪裁.
 //#define WS_MINIMIZE         0x20000000UL
 //#define WS_MAXIMIZE         0x10000000UL
@@ -905,7 +872,9 @@ typedef struct tagNMHDR
 #define WS_CAPTION          0x00080000UL // 窗口会带有标题栏.
 //#define WS_WINSURFACE       0x00040000UL
 #define WS_OWNERDRAW        0x00020000UL // 窗口自绘,对子窗口有效,将产生WM_DRAWITEM消息.
-#define WS_OWNERDC          0x00010000UL
+//#define WS_OWNERDC          0x00010000UL
+
+#define WS_OVERLAPPED       WS_CLIPSIBLINGS // 可叠层的窗口,具备该属性的窗口可以相互叠层,桌面与主窗口默认是可以叠层的.
 
 //默认的窗口风格
 #define WS_OVERLAPPEDWINDOW (\
@@ -1020,7 +989,6 @@ typedef struct tagNMHDR
 #define	MB_BTN_WIDTH(a)				(0x0000FF00L&(a<<8))  /* 设置按钮宽度,按钮将按中间对齐排列  */
 #define	MB_BTN_AUTOSIZE				MB_BTN_WIDTH(0)       /* 由系统自动设置按钮宽度(根据按钮字符长度),按钮将按右对齐排列 */
 
-
 //// MessageBox Button ID
 #if 0
 #define IDOK		1
@@ -1036,19 +1004,17 @@ typedef struct tagNMHDR
 
 typedef	struct __MSGBOXOPTIONS
 {
-	const WCHAR **pButtonText;
-	int ButtonCount;
-	u32 Flag;
+	const WCHAR **pButtonText; //按钮字符组.
+	int ButtonCount;           //按钮数量.
+	u32 Flag;                  //标记.
 }MSGBOX_OPTIONS;
 
-
-/*============================================================================*/	
 /*============================================================================*/
 //GetWindowLong/SetWindowLong commands
 
 //#define GWL_WNDPROC         (1)
-#define GWL_HINSTANCE       (2)  /* 进程标识(保留). */
-#define GWL_HWNDPARENT      (3)  /* 父窗口.  */
+//#define GWL_HINSTANCE       (2)  /* 进程标识(保留). */
+//#define GWL_HWNDPARENT      (3)  /* 父窗口.  */
 #define GWL_STYLE           (4)  /* 窗口风格标志.  */
 #define GWL_EXSTYLE         (5)  /* 窗口扩展风格标志 . */
 #define GWL_USERDATA        (6)  /* 窗口用户数据值.  */
@@ -1123,21 +1089,21 @@ typedef	struct __MSGBOXOPTIONS
  *系统自带的基础控件类.
  */
 
-#define	BUTTON		((WNDCLASS*)L"BUTTON")          /* 按钮/单选按钮/复选按钮 */
-#define	TEXTBOX		((WNDCLASS*)L"TEXTBOX")         /* 文字框 */
-#define	GROUPBOX	((WNDCLASS*)L"GROUPBOX")        /* 分组框 */
-#define	PROGRESSBAR	((WNDCLASS*)L"PROGRESSBAR")     /* 进度条 */
-#define	SCROLLBAR	((WNDCLASS*)L"SCROLLBAR")       /* 滑块 */
-#define	LISTBOX		((WNDCLASS*)L"LISTBOX")         /* 列表框 */
+#define	BUTTON		((WNDCLASS*)L"BUTTON")       //按钮/单选按钮/复选按钮.
+#define	TEXTBOX		((WNDCLASS*)L"TEXTBOX")      //文字框.
+#define	GROUPBOX	((WNDCLASS*)L"GROUPBOX")     //分组框.
+#define	PROGRESSBAR	((WNDCLASS*)L"PROGRESSBAR")  //进度条.
+#define	SCROLLBAR	((WNDCLASS*)L"SCROLLBAR")    //滑块.
+#define	LISTBOX		((WNDCLASS*)L"LISTBOX")      //列表框.
 
 /*============================================================================*/
 //控件颜色结构体。
 typedef	struct
 {
-	COLOR_RGB32 TextColor;   //文字颜色。
-	COLOR_RGB32 BorderColor; //边框颜色。
-	COLOR_RGB32 BackColor;   //背景颜色。
-	COLOR_RGB32 ForeColor;   //前景颜色。
+	COLOR_RGB32 TextColor;   //文字颜色.
+	COLOR_RGB32 BorderColor; //边框颜色.
+	COLOR_RGB32 BackColor;   //背景颜色.
+	COLOR_RGB32 ForeColor;   //前景颜色.
 
 }CTLCOLOR;
 
@@ -1214,16 +1180,6 @@ typedef	struct
 
 #define WM_CAPTURECHANGED               0x0065
 
-#if 0
-/*
- * lParam of WM_COPYDATA message points to...
- */
-typedef struct tagCOPYDATASTRUCT {
-    U32 dwData;
-    U32 cbData;
-    PVOID lpData;
-} COPYDATASTRUCT, *PCOPYDATASTRUCT;
-#endif
 
 #define WM_NOTIFY                       0x004E /* [子窗口事件通知]: <wParam>HIWORD:事件通知码;LOWORD:产生该消息的子窗口ID; <lParam>扩展信息(HMHDR结构体指针); <返回>忽略. */
 //#define WM_INPUTLANGCHANGEREQUEST       0x0050
@@ -1244,7 +1200,7 @@ typedef struct tagCOPYDATASTRUCT {
 #define WM_NCDESTROY                    0x0082
 #define WM_NCCALCSIZE                   0x0083
 #define WM_NCHITTEST                    0x0084
-#define WM_NCPAINT                      0x0085
+#define WM_NCPAINT                      0x0085 /* [非客户区绘制消息]: <wParam>HDC; <lParam>NCPAINT_STRUCT结构体指针; <返回>TURE:成功;FALSE:失败(将由系统默认绘制). */
 //#define WM_NCACTIVATE                   0x0086
 
 //#define WM_GETDLGCODE                   0x0087
@@ -1299,19 +1255,19 @@ typedef struct tagCOPYDATASTRUCT {
 
 #define WM_MOUSEFIRST                   0x0200  /* First Mouse Message */
 
-#define WM_MOUSEMOVE                    0x0200	/* wParam:HI16,MouseID,LO16:Mouse Key State; lParam:HIWORD:ypos(cli),LOWORD:xpos(cli),*/
-#define WM_LBUTTONDOWN                  0x0201	/* wParam:HI16,MouseID,LO16:Mouse Key State; lParam:HIWORD:ypos(cli),LOWORD:xpos(cli),*/
-#define WM_LBUTTONUP                    0x0202	/* wParam:HI16,MouseID,LO16:Mouse Key State; lParam:HIWORD:ypos(cli),LOWORD:xpos(cli),*/
-#define WM_LBUTTONDBLCLK                0x0203
-#define WM_RBUTTONDOWN                  0x0204	/* wParam:HI16,MouseID,LO16:Mouse Key State; lParam:HIWORD:ypos(cli),LOWORD:xpos(cli),*/
-#define WM_RBUTTONUP                    0x0205	/* wParam:HI16,MouseID,LO16:Mouse Key State; lParam:HIWORD:ypos(cli),LOWORD:xpos(cli),*/
-#define WM_RBUTTONDBLCLK                0x0206
-#define WM_MBUTTONDOWN                  0x0207
-#define WM_MBUTTONUP                    0x0208
-#define WM_MBUTTONDBLCLK                0x0209
+#define WM_MOUSEMOVE                    0x0200	// [客户区鼠标移动]: <wParam>LO16:鼠标键状态; <lParam>位置(客户区坐标),H16:Y,LO16:X; <返回>忽略.
+#define WM_LBUTTONDOWN                  0x0201	// [客户区鼠标左键按下]: <wParam>LO16:鼠标键状态; <lParam>位置(客户区坐标),H16:Y,LO16:X; <返回>忽略.
+#define WM_LBUTTONUP                    0x0202	// [客户区鼠标左键抬起]: <wParam>LO16:鼠标键状态; <lParam>位置(客户区坐标),H16:Y,LO16:X; <返回>忽略.
+#define WM_LBUTTONDBLCLK                0x0203  // [客户区鼠标左键双击]: <wParam>LO16:鼠标键状态; <lParam>位置(客户区坐标),H16:Y,LO16:X; <返回>忽略.
+#define WM_RBUTTONDOWN                  0x0204	// [客户区鼠标右键按下]: <wParam>LO16:鼠标键状态; <lParam>位置(客户区坐标),H16:Y,LO16:X; <返回>忽略.
+#define WM_RBUTTONUP                    0x0205	// [客户区鼠标右键抬起]: <wParam>LO16:鼠标键状态; <lParam>位置(客户区坐标),H16:Y,LO16:X; <返回>忽略.
+#define WM_RBUTTONDBLCLK                0x0206  // [客户区鼠标右键双击]: <wParam>LO16:鼠标键状态; <lParam>位置(客户区坐标),H16:Y,LO16:X; <返回>忽略.
+#define WM_MBUTTONDOWN                  0x0207  // [客户区鼠标中键按下]: <wParam>LO16:鼠标键状态; <lParam>位置(客户区坐标),H16:Y,LO16:X; <返回>忽略.
+#define WM_MBUTTONUP                    0x0208  // [客户区鼠标中键抬起]: <wParam>LO16:鼠标键状态; <lParam>位置(客户区坐标),H16:Y,LO16:X; <返回>忽略.
+#define WM_MBUTTONDBLCLK                0x0209  // [客户区鼠标中键双击]: <wParam>LO16:鼠标键状态; <lParam>位置(客户区坐标),H16:Y,LO16:X; <返回>忽略.
 #define WM_MOUSEWHEEL                   0x020A
 #define WM_MOUSEHOVER                   0x020B
-#define WM_MOUSELEAVE                   0x020C
+#define WM_MOUSELEAVE                   0x020C  // [鼠标离开客户区]: <wParam>LO16:鼠标键状态; <lParam>位置(屏幕坐标),H16:Y,LO16:X; <返回>忽略.
 
 #define WM_MOUSELAST                    0x020C /* Last Mouse Message */
 
@@ -1449,9 +1405,9 @@ typedef struct tagMDINEXTMENU
 
 
 /*============================================================================*/
-/********************/
-/*   按钮 / Button   */
-/********************/
+/*
+ *  按钮 / Button
+ */
 
 /*
  * 按钮控件的私有风格标志(使用窗口风格的低16位) /Button private styles(Low 16bits)
@@ -1459,89 +1415,99 @@ typedef struct tagMDINEXTMENU
 
 /*　按钮外观 / Button face */
 #define	BS_FACE_MASK	(3<<0)
-#define BS_FLAT         (1<<0) /*　平面风格. */
-#define	BS_3D		    (2<<0) /*　立体风格. */
-#define	BS_ROUND	    (3<<0) /*　圆角风格. */
+#define BS_FLAT         (1<<0) // 平面风格.
+#define	BS_3D		    (2<<0) // 立体风格.
+#define	BS_ROUND	    (3<<0) // 圆角风格.
 
 /*　按钮类型 / Button type */
 #define	BS_TYPE_MASK	(3<<2)
-#define	BS_PUSHBUTTON	(0<<2) /* 常规按钮. */
-#define	BS_CHECKBOX		(1<<2) /* 复选框. */
-#define	BS_RADIOBOX		(2<<2) /* 单选框. */
+#define	BS_PUSHBUTTON	(0<<2) // 常规按钮.
+#define	BS_CHECKBOX		(1<<2) // 复选框.
+#define	BS_RADIOBOX		(2<<2) // 单选框.
 
 /*　杂项风格标志 / Misc flags */
-#define	BS_PUSHLIKE		(1<<4)  /*　当作为复选框/单选框　类型时,使用常规按钮的外观. */
+#define	BS_PUSHLIKE		(1<<4)  // 当作为复选框/单选框　类型时,使用常规按钮的外观.
 //#define	BS_LEFTTEXT		(1<<5)
-#define BS_FOCUSFRAME 	(1<<6)  /*　当获得焦点时,会显示“焦点框”. */
-#define BS_NOTIFY       (1<<15) /*　使用该标志时，将产生额外的通知消息. */
+#define BS_FOCUSFRAME 	(1<<6)  // 当获得焦点时,会显示“焦点框”.
+#define BS_NOTIFY       (1<<15) // 使用该标志时，将产生额外的通知消息.
+
+/*
+ * 按钮状态值 / Button States
+ */
+#define BST_PUSHED         0x0001 // 按下状态(常规按钮).
+#define BST_CHECKED        0x0002 // 选中状态(复选框/单选框).
+//#define BST_INDETERMINATE  0x0004
+//#define BST_FOCUS          0x0008
 
 /*
  *　按钮通知码 / Button Notification Codes
  */
-#define	BN_CLICKED			0x00 /* 单击(按下+弹起). */
+#define	BN_CLICKED			0x00 // 单击(按下+弹起).
 //额外的通知码 / extend Notification Codes
-#define BN_SETFOCUS         0x80 /* 获得了焦点. */
-#define BN_KILLFOCUS        0x81 /* 失去了焦点. */
-#define	BN_PUSHED			0x82 /* 按下. */
-#define	BN_CHECKED			0x83 /* 复选框/单选框　被选中. */
+#define BN_SETFOCUS         0x80 // 获得了焦点.
+#define BN_KILLFOCUS        0x81 // 失去了焦点.
+#define	BN_PUSHED			0x82 // 按下.
+#define	BN_CHECKED			0x83 // 复选框/单选框　被选中.
 //#define	BN_UNCHECKED		0x84
 
 /*
  * 按钮消息 / Button Messages
  */
-//#define BM_GETCHECK        0x00F0
-//#define BM_SETCHECK        0x00F1 /* wParam: check(0/1); lParam: ignore */
-#define BM_GETSTATE        0x00F2 
-#define BM_SETSTATE        0x00F3 /* wParam: states; lParam: none */
-//#define BM_SETSTYLE        0x00F4
-//#define BM_CLICK           0x00F5
-//#define BM_GETIMAGE        0x00F6
-//#define BM_SETIMAGE        0x00F7
-
-/*
- * 按钮状态值 / Button States
- */
-#define BST_PUSHED         0x0001
-#define BST_CHECKED        0x0002
-//#define BST_INDETERMINATE  0x0004
-#define BST_FOCUS          0x0008
-
+//#define BM_GETCHECK      (WM_WIDGET+0)
+//#define BM_SETCHECK      (WM_WIDGET+1)
+#define BM_GETSTATE        (WM_WIDGET+2) // [获得状态]: <wParam>忽略; <lParam>忽略; <返回>状态值.
+#define BM_SETSTATE        (WM_WIDGET+3) // [设置状态]: <wParam>状态值; <lParam>忽略; <返回>忽略.
 
 /*============================================================================*/
-/*** TextBox ***/
+/*** 字符框 / Textbox ***/
 
-//// Style
-#define	TBS_FLAT		(0<<0)
-#define	TBS_SUNK		(1<<0)
+//// 字符框 有风格标志 / Textbox private styles
+
+#define	TBS_FLAT		(0<<0) //平面外观.
+#define	TBS_SUNK		(1<<0) //下沉外观.
 
 #define	TBS_H_MASK		(3<<2)
-#define	TBS_LEFT		(0<<2)
-#define	TBS_CENTER		(1<<2)
-#define	TBS_RIGHT		(2<<2)
+#define	TBS_LEFT		(0<<2) //文字水平左对齐.
+#define	TBS_CENTER		(1<<2) //文字水平居中对齐.
+#define	TBS_RIGHT		(2<<2) //文字水平右对齐.
 
 #define	TBS_V_MASK		(3<<4)
-#define	TBS_VCENTER		(0<<4)
-#define	TBS_TOP			(1<<4)
-#define	TBS_BOTTOM		(2<<4)
+#define	TBS_VCENTER		(0<<4) //文字垂直居中对齐.
+#define	TBS_TOP			(1<<4) //文字垂直顶部对齐.
+#define	TBS_BOTTOM		(2<<4) //文字垂直底部对齐.
 
-#define	TBS_SINGLELINE	(1<<6)
+#define	TBS_SINGLELINE	(1<<6)  //单行显示.
+#define TBS_NOTIFY      (1<<15) //产生额外的通知码.
 
-#define TBS_NOTIFY      (1<<15)
+////字符框通知码 /  Notification Codes.
+#define TBN_CLICKED          0x00 //被点击.
 
+//额外的通知码 / Extra Notification Codes.
+#define TBN_SETFOCUS         0x80 //获得了焦点.
+#define TBN_KILLFOCUS        0x81 //失去了焦点.
 
-//// Notification Codes
-#define TBN_CLICKED          0x00
-//for TBS_NOTIFY
-#define TBN_SETFOCUS         0x80
-#define TBN_KILLFOCUS        0x81
-
-//// Message
-#define	TBM_SET_TEXTFLAG		(0x7000+0) //wParam:none;lParam:DrawText Flags
-#define	TBM_GET_TEXTFLAG		(0x7000+1) //wParam:none;lParam:none; return:DrawText Flag
+////字符框消息 / Textbox Messages.
+#define	TBM_SET_TEXTFLAG	(WM_WIDGET+0) // [设置文字绘制标志]: <wParam>TRUE:重绘窗口;FALSE:不重绘窗口; <lParam>文字绘制标志,与DrawText标志相同; <返回>忽略.
+#define	TBM_GET_TEXTFLAG	(WM_WIDGET+1) // [获得文字绘制标志]: <wParam>忽略; <lParam>忽略; <返回>文字绘制标志值.
 
 /*============================================================================*/
-/*** Progressbar ***/
+/*
+ * 进度条 / Progressbar
+ */
 
+//// 进度条风格标志 / ProgressBar Style
+#define	PBS_FACE_MASK		(3<<0)
+#define	PBS_FLAT			(1<<0) //平面外观风格的.
+#define	PBS_3D				(2<<0) //立体凸起外观风格的.
+#define	PBS_TEXT			(1<<2) //带文字显示.
+
+#define	PBS_ALIGN_MASK		(3<<3)
+#define	PBS_ALIGN_LEFT		(0<<3) //左边起始点模式.
+#define	PBS_ALIGN_RIGHT		(1<<3) //右边起始点模式.
+#define	PBS_ALIGN_TOP		(2<<3) //顶部起始点模式.
+#define	PBS_ALIGN_BOTTOM	(3<<3) //底部起始点模式.
+
+//// 进度条参数掩码值.
 #define	PB_CFG_RANGLE	(1<<0)
 #define	PB_CFG_VALUE	(1<<1)
 #define	PB_CFG_TEXTFLAG (1<<2)
@@ -1549,37 +1515,25 @@ typedef struct tagMDINEXTMENU
 #define	PB_CFG_ALL	(PB_CFG_RANGLE | PB_CFG_VALUE  | PB_CFG_TEXTFLAG )
 
 typedef	struct	{
-	u16 cbSize;
-	u16 fMask;
-	u32 Rangle;
-	u32 Value;
-	u32 TextFlag;
+	u16 cbSize;    //使用前必须指定为 PROGRESSBAR_CFG 字节数，用于内部判断结构体的合法性.
+	u16 fMask;     //参数掩码值.
+	u32 Rangle;    //量程.
+	u32 Value;     //当前值.
+	u32 TextFlag;  //文件绘制标志(与DrawText绘制标志相同).
 }PROGRESSBAR_CFG;
 
-//// ProgressBar Style
-#define	PBS_FACE_MASK		(3<<0)
-#define	PBS_FLAT			(1<<0)
-#define	PBS_3D				(2<<0)
 
-#define	PBS_TEXT			(1<<2)
+//// 进度条消息 / Progressbar Message
+#define	PBM_SET_CFG		(WM_WIDGET+0) // [设置参数]: <wParam>TRUE：重绘; FALSE:不重绘; <lParam>PROGRESSBAR_CFG指针; <返回>忽略.
+#define	PBM_GET_CFG		(WM_WIDGET+1) // [获得参数]: <wParam>忽略; <lParam>PROGRESSBAR_CFG指针; <返回>忽略.
+#define	PBM_SET_RANGLE	(WM_WIDGET+2) // [设置量程]: <wParam>TRUE：重绘; FALSE:不重绘; <lParam>量程; <返回>忽略.
+#define	PBM_GET_RANGLE	(WM_WIDGET+3) // [获得量程]: <wParam>忽略; <lParam>忽略; <返回>量程.
+#define	PBM_SET_VALUE	(WM_WIDGET+4) // [设置当前值]: <wParam>TRUE：重绘; FALSE:不重绘; <lParam>当前值; <返回>忽略.
+#define	PBM_GET_VALUE	(WM_WIDGET+5) // [获得当前值]: <wParam>忽略; <lParam>忽略; <返回>当前值.
 
-#define	PBS_ALIGN_MASK		(3<<3)
-#define	PBS_ALIGN_LEFT		(0<<3)
-#define	PBS_ALIGN_RIGHT		(1<<3)
-#define	PBS_ALIGN_TOP		(2<<3)
-#define	PBS_ALIGN_BOTTOM	(3<<3)
-
-//// Progressbar Message
-#define	PBM_SET_CFG		(WM_WIDGET+0) // wParam: FALSE->  Not Redraw; TRUE-> Redraw; lParam:pt-PROGRESSBAR_CFG
-#define	PBM_GET_CFG		(WM_WIDGET+1) // wParam: none; lParam:pt-PROGRESSBAR_CFG
-#define	PBM_SET_RANGLE	(WM_WIDGET+2) // wParam: FALSE->  Not Redraw; TRUE-> Redraw; lParam:Rangle
-#define	PBM_GET_RANGLE	(WM_WIDGET+3)
-#define	PBM_SET_VALUE	(WM_WIDGET+4) // wParam: FALSE->  Not Redraw; TRUE-> Redraw; lParam:Value
-#define	PBM_GET_VALUE	(WM_WIDGET+5)
-
-//// Porgressbar Notify code
-#define	PBN_CLICKED		(0x00)
-#define	PBN_CHANGE		(0x01)
+//// 进度条通知码 / Porgressbar Notify codes.
+#define	PBN_CLICKED		(0x00) //被点击了.
+#define	PBN_CHANGE		(0x01) //当前值被改变了.
 
 
 #if 0
@@ -1707,26 +1661,42 @@ typedef	struct	{
 #endif
 
 /*============================================================================*/
-/**************/
-/*   ListBox  */
-/**************/
+/*
+ *   列表框 /  ListBox
+ */
+
+/// Listbox 私有的风格标志
+#define	LBS_ALIGNMASK			0x0003 //文字对齐mask码.
+#define	LBS_LEFTTEXT			0x0000 //文字左对齐.
+#define	LBS_CENTERTEXT			0x0001 //文字中间对齐.
+#define	LBS_RIGHTTEXT			0x0002 //文字右对齐.
+
+//#define LBS_SORT              0x0002L
+
+//#define LBS_MULTIPLESEL       0x0008L
+
+//#define LBS_MULTICOLUMN       0x0200L
+//#define LBS_WANTKEYBOARDINPUT 0x0400L
+//#define LBS_EXTENDEDSEL       0x0800L
+//#define LBS_DISABLENOSCROLL   0x1000L
+//#define LBS_NODATA            0x2000L
+#define LBS_LINE    		  0x2000L //列表项之间有分行线条.
+#define LBS_NOSEL             0x4000L //没有可选择项.
+#define LBS_NOTIFY            0x8000L //产生额外的通知码(0x80值以上的 LBN_xxx).
+
+//#define LBS_STANDARD          (LBS_NOTIFY | LBS_SORT | WS_VSCROLL | WS_BORDER)
+
 
 /*
- * Listbox Return Values
+ * Listbox通知码 / Listbox Notification Codes
  */
-#define LB_OKAY             0
-#define LB_ERR              (-1)
-#define LB_ERRSPACE         (-2)
+#define LBN_CLICKED       	0x00 //被点击了.
 
-/*
- * Listbox Notification Codes
- */
-#define LBN_CLICKED       	0x00
-
-//for LBS_NOTIFY
-#define LBN_SETFOCUS        0x80
-#define LBN_KILLFOCUS       0x81
-#define LBN_SELCHANGE       0x82
+//额外的通知码(LBS_NOTIFY)
+#define LBN_SETFOCUS        0x80 //获得焦点.
+#define LBN_KILLFOCUS       0x81 //失去焦点.
+#define LBN_SELCHANGE       0x82 //选择项被改变.
+#define	LBN_POSCHANGE		0x83 //位置被改变.
 //#define LBN_DBLCLK          0x83
 //#define LBN_SELCANCEL       0x84
 //#define LBN_ERRSPACE        0x85
@@ -1734,21 +1704,20 @@ typedef	struct	{
 /*
  * Listbox messages
  */
-#define LB_ADDSTRING            0x0180	/* wParam: index; lParam: str  */
-#define LB_INSERTSTRING         0x0181	/* wParam: index; lParam: str  */
-#define LB_DELETESTRING         0x0182	/* wParam: index; lParam: none */
+#define LB_ADDSTRING            0x0180	//[增加子项目]: <wParam>索引值(在第几个位置,为0则增加到第一个位置); <lParam>文字; <返回>忽略.
+#define LB_DELETESTRING         0x0182	//[删除子项目]: <wParam>索引值; <lParam>忽略; <返回>忽略.
 //#define LB_SELITEMRANGEEX       0x0183
-#define LB_RESETCONTENT         0x0184	/* wParam: none;  lParam: none */
+#define LB_RESETCONTENT         0x0184	//[删除所有子项目]: <wParam>忽略; <lParam>忽略; <返回>忽略.
 //#define LB_SETSEL               0x0185
-#define LB_SETCURSEL            0x0186	/* wParam: index; lParam: none */
+#define LB_SETCURSEL            0x0186	//[设置当前选中的子项目]: <wParam>索引值; <lParam>忽略; <返回>忽略.
 //#define LB_GETSEL               0x0187
-#define LB_GETCURSEL            0x0188	/* wParam: none;  lParam: none */
-#define LB_GETTEXT              0x0189	/* wParam: index; lParam: buf  */
-#define LB_GETTEXTLEN           0x018A	/* wParam: index; lParam; none */
-#define LB_GETCOUNT             0x018B	/* wParam: none;  lParam: none */
-#define LB_SETPOS               0x018C  /* wParam: bRedraw;  lParam: pos */
-#define LB_GETPOS               0x018D  /* wParam: none;  lParam: none */
-#define LB_GETTOPINDEX          0x018E	/* wParam: none;  lParam: none */
+#define LB_GETCURSEL            0x0188	//[获得当前选中的子项目]: <wParam>索引值; <lParam>忽略; <返回>当前选中的子项目索引值.
+#define LB_GETTEXT              0x0189	//[获得子项目的文字内容]: <wParam>索引值; <lParam>文字缓冲区内存; <返回>忽略.
+#define LB_GETTEXTLEN           0x018A	//[获得子项目的文字内容长度]: <wParam>索引值; <lParam>忽略; <返回>文字内容长度.
+#define LB_GETCOUNT             0x018B	//[获得子项目总数量]: <wParam>忽略; <lParam>忽略; <返回>子项目总数量.
+#define LB_SETPOS               0x018C  //[设置显示位置]: <wParam>TURE:重绘;FALSE:不重绘; <lParam>位置值; <返回>忽略.
+#define LB_GETPOS               0x018D  //[获得显示位置]: <wParam>忽略; <lParam>忽略; <返回>位置值.
+#define LB_GETTOPINDEX          0x018E	//[获得首个显示的子项目]: <wParam>忽略; <lParam>忽略; <返回>子项目索引值.
 //#define LB_FINDSTRING           0x018F
 //#define LB_GETSELCOUNT          0x0190
 //#define LB_GETSELITEMS          0x0191
@@ -1756,47 +1725,37 @@ typedef	struct	{
 //#define LB_GETHORIZONTALEXTENT  0x0193
 //#define LB_SETHORIZONTALEXTENT  0x0194
 //#define LB_SETCOLUMNWIDTH       0x0195
-//#define LB_ADDFILE              0x0196
-#define LB_SETTOPINDEX          0x0197	/* wParam: index; lParam: none */
-#define LB_GETITEMRECT          0x0198	/* wParam: index; lParam: Rect */
-#define LB_GETITEMDATA          0x0199	/* wParam: index; lParam: none */
-#define LB_SETITEMDATA          0x019A	/* wParam: index; lParam: data */
+#define	LB_LOCKCURSEL			0x0196  //[锁定当前选中的子项目(不能被点击改变,但仍然可以使用LB_SETCURSEL)]: <wParam>TRUE:锁定; FALSE:解除锁定; <lParam>忽略; <返回>忽略.
+#define LB_SETTOPINDEX          0x0197	//[设置首个显示的子项目]: <wParam>子项目索引值; <lParam>忽略; <返回>忽略.
+#define LB_GETITEMRECT          0x0198	//[获得子项目的矩形参数]: <wParam>子项目索引值; <lParam>RECT指针; <返回>忽略.
+#define LB_GETITEMDATA          0x0199	//[获得子项目的数据值]: <wParam>子项目索引值; <lParam>忽略; <返回>数据值.
+#define LB_SETITEMDATA          0x019A	//[设置子项目的数据值]: <wParam>子项目索引值; <lParam>数据值; <返回>忽略.
 //#define LB_SELITEMRANGE         0x019B
 //#define LB_SETANCHORINDEX       0x019C
 //#define LB_GETANCHORINDEX       0x019D
 //#define LB_SETCARETINDEX        0x019E
 //#define LB_GETCARETINDEX        0x019F
-#define LB_SETITEMHEIGHT        0x01A0	/* wParam: index; lParam: height */
-#define LB_GETITEMHEIGHT        0x01A1	/* wParam: index; lParam: none */
-#define	LB_GETITEMOFFSET		0x01A2	/* wParam: index; lParam: none */
+#define LB_SETITEMHEIGHT        0x01A0	//[设置子项目的高度]: <wParam>子项目索引值; <lParam>高度值; <返回>忽略.
+#define LB_GETITEMHEIGHT        0x01A1	//[获得子项目的高度]: <wParam>子项目索引值; <lParam>忽略; <返回>高度值.
+#define	LB_GETITEMOFFSET		0x01A2	//[获得子项目的位置]: <wParam>子项目索引值; <lParam>忽略; <返回>位置.
 //#define LB_FINDSTRINGEXACT      0x01A2
 //#define LB_SETLOCALE            0x01A5
 //#define LB_GETLOCALE            0x01A6
 //#define LB_SETCOUNT             0x01A7
 //#define LB_INITSTORAGE          0x01A8
 //#define LB_ITEMFROMPOINT        0x01A9
-#define	LB_SETTEXT				0x01AA	/* wParam: index; lParam: text(WCHAR*) */
-#define LB_OFFSETPOS			0x01AB  /* wParam: bRedraw;  lParam: offset */
+#define	LB_SETTEXT				0x01AA	//[设置子项目的文字]: <wParam>子项目索引值; <lParam>文字内容(WCHAR型字符串); <返回>忽略.
+#define LB_OFFSETPOS			0x01AB  //[移动显示位置]: <wParam>TURE:重绘;FALSE:不重绘; <lParam>偏移值(正数为向下移动;负数为向上移动); <返回>忽略.
+#define	LB_MOVEINDEX			0x01AC  //[移动指定子项目的索引值]: <wParam>子项目索引值; <lParam>新的索引值; <返回>忽略.
+////
+#define	LB_INSERTSTRING		LB_ADDSTRING
 
 /*
- * Listbox 私有的风格标志
+ * Listbox Return Values
  */
-#define LBS_NOTIFY            0x0001L //产生额外的通知码(0x80值以上的 LBN_xxx).
-//#define LBS_SORT              0x0002L
-//#define LBS_NOREDRAW          0x0004L
-//#define LBS_MULTIPLESEL       0x0008L
-#define LBS_LINE    		  0x0010L //列表项之间有分行线条.
-//#define LBS_OWNERDRAWVARIABLE 0x0020L
-//#define LBS_HASSTRINGS        0x0040L
-//#define LBS_USETABSTOPS       0x0080L
-//#define LBS_NOINTEGRALHEIGHT  0x0100L
-//#define LBS_MULTICOLUMN       0x0200L
-//#define LBS_WANTKEYBOARDINPUT 0x0400L
-//#define LBS_EXTENDEDSEL       0x0800L
-//#define LBS_DISABLENOSCROLL   0x1000L
-//#define LBS_NODATA            0x2000L
-#define LBS_NOSEL             0x4000L //没有可选择项.
-//#define LBS_STANDARD          (LBS_NOTIFY | LBS_SORT | WS_VSCROLL | WS_BORDER)
+#define LB_OKAY             0
+#define LB_ERR              (-1)
+#define LB_ERRSPACE         (-2)
 
 /*============================================================================*/
 #if 0
@@ -1887,73 +1846,21 @@ typedef	struct	{
 #endif
 
 /*============================================================================*/
-/***************/
-/*   ScrollBar */
-/***************/
-
 /*
- * scrollbar notify code
- */
-#define SBN_CLICKED    (0x00)
-#define SBN_THUMBTRACK (0x01)
-
-////滑动条被点击的部位定义。
-#define SB_TRACK      (0)
-#define	SB_ARROWUP	  (1)
-#define	SB_ARROWDOWN  (2)
-#define SB_PAGEUP     (3)
-#define SB_PAGEDOWN   (4)
-
-#define	SB_ARROWLEFT  (5)
-#define	SB_ARROWRIGHT (6)
-#define SB_PAGELEFT   (7)
-#define SB_PAGERIGHT  (8)
-//#define SB_THUMBTRACK (9)
-
-//滑动条(SCROLLBAR)的通知码附加信息结构体.
-typedef struct
-{
-	NMHDR hdr;       //必须以 HMHDR 为开头。
-	S32 nTrackValue; //滑块的数值。
-	U32 cmd;         //滑动条被点击的部位。
-
-}NM_SCROLLBAR;;
-
-/////
-
-/////
-#define SIF_RANGE           (u32)(1<<0)
-#define SIF_VALUE           (u32)(1<<1)
-#define SIF_TRACKSIZE       (u32)(1<<2)
-#define SIF_ARROWSIZE       (u32)(1<<3)
-
-#define SIF_ALL             (SIF_ARROWSIZE| SIF_TRACKSIZE | SIF_VALUE | SIF_RANGE)
-
-typedef struct tagSCROLLINFO
-{
-    u16  cbSize;
-    u16  fMask;
-	s32  nMin;
-	s32  nMax;
-	s32  nValue;
-	u16  TrackSize;
-	u16  ArrowSize;
-
-}SCROLLINFO,SCROLLBAR_CFG;
-
-/*
- * Scroll Bar Styles
+ * 滑动条 / ScrollBar
  */
 
-#define SBS_HORZ                    ((u16)(0<<0)) /* 水平风格类型 */
-#define SBS_VERT                    ((u16)(1<<0)) /* 垂直风格类型 */
+//// 滑动条私有风格标志 / ScrollBar Styles
+#define SBS_HORZ                    ((u16)(0<<0))   // 水平风格类型.
+#define SBS_VERT                    ((u16)(1<<0))   // 垂直风格类型.
 
-#define	SBS_LEFT_ALIGN				((u16)(0<<1)) /* 左对齐增长方式 */
-#define	SBS_RIGHT_ALIGN				((u16)(1<<1)) /* 右对齐增长方式 */
-#define	SBS_NOARROWS				((u16)(1<<2)) /* 无箭头外观 */
+#define	SBS_LEFT_ALIGN				((u16)(0<<1))   // 左对齐增长方式.
+#define	SBS_RIGHT_ALIGN				((u16)(1<<1))   // 右对齐增长方式.
+#define	SBS_NOARROWS				((u16)(1<<2))   // 无箭头外观.
+#define	SBS_NOTIFY					((u16)(1<<15))  // 产生额外的通知消息.
 
-#define	SBS_TOP_ALIGN				SBS_LEFT_ALIGN  /* 顶部对齐增长方式 */
-#define	SBS_BOTTOM_ALIGN			SBS_RIGHT_ALIGN /* 底部对齐增长方式 */
+#define	SBS_TOP_ALIGN				SBS_LEFT_ALIGN  // 顶部对齐增长方式.
+#define	SBS_BOTTOM_ALIGN			SBS_RIGHT_ALIGN // 底部对齐增长方式.
 
 /*
 #define SBS_SIZEBOXTOPLEFTALIGN     0x0002L
@@ -1961,34 +1868,105 @@ typedef struct tagSCROLLINFO
 #define SBS_SIZEBOX                 0x0008L
 #define SBS_SIZEGRIP                0x0010L
 */
-#define	SBS_NOTIFY					((u16)(1<<15))
+
 
 /*
- * Scroll Bar State
+ * 滑动条通知码 / Scrollbar Notify Codes.
  */
-#define	SST_THUMBTRACK		(1<<0)
-#define SST_LINELEFT        (1<<1)
-#define SST_LINERIGHT       (1<<2)
-#define SST_PAGELEFT        (1<<3)
-#define SST_PAGERIGHT       (1<<4)
+#define SBN_CLICKED    (0x00) //被点击了.
+#define SBN_THUMBTRACK (0x01) //滑块位置移动了.
 
-#define SST_LINEUP          SST_LINELEFT
-#define SST_LINEDOWN        SST_LINERIGHT
-#define SST_PAGEUP          SST_PAGELEFT
-#define SST_PAGEDOWN        SST_PAGERIGHT
+////滑动条被点击的部位定义。
+#define SB_TRACK      (0) //滑块.
+#define	SB_ARROWUP	  (1) //上箭头.
+#define	SB_ARROWDOWN  (2) //下箭头.
+#define SB_PAGEUP     (3) //上页(上箭头与滑块之间的区域).
+#define SB_PAGEDOWN   (4) //下页(下箭头与滑块之间的区域).
+
+#define	SB_ARROWLEFT  (5) //左箭头.
+#define	SB_ARROWRIGHT (6) //右箭头.
+#define SB_PAGELEFT   (7) //左页(左箭头与滑块之间的区域).
+#define SB_PAGERIGHT  (8) //右页(右箭头与滑块之间的区域).
+//#define SB_THUMBTRACK (9)
+
+//滑动条(SCROLLBAR)的通知码附加信息结构体.
+typedef struct
+{
+	NMHDR hdr;       //必须以 HMHDR 为开头.
+	S32 nTrackValue; //滑块的数值.
+	U32 cmd;         //滑动条被点击的部位.
+
+}NM_SCROLLBAR;;
+
+/////滑动条参数的掩码值.
+#define SIF_RANGE           (u16)(1<<0) //量程.
+#define SIF_VALUE           (u16)(1<<1) //当前值.
+#define SIF_TRACKSIZE       (u16)(1<<2) //滑块大小.
+#define SIF_ARROWSIZE       (u16)(1<<3) //箭头大小.
+
+#define SIF_ALL             (SIF_ARROWSIZE| SIF_TRACKSIZE | SIF_VALUE | SIF_RANGE)
+
+typedef struct
+{
+    u16  cbSize;     // SCROLLINFO 结构体的字节数(内部用该成员值来判断结构体的合法性).
+    u16  fMask;      // 参数的掩码值(相关参数的掩码值有效才能被设置或获取).
+	s32  nMin;       // 量程最小值.
+	s32  nMax;       // 量程最大值.
+	s32  nValue;     // 当前值.
+	u16  TrackSize;  // 滑块大小.
+	u16  ArrowSize;  // 箭头大小.
+
+}SCROLLINFO,SCROLLBAR_CFG;
+
+typedef	union
+{
+	struct
+	{
+		RECT Track;        //滑块矩形.
+		RECT LeftArrow;    //左箭头矩形.
+		RECT RightArrow;   //右箭头矩形.
+		RECT LeftPage;     //左滑杆矩形.
+		RECT RightPage;    //右滑杆矩形.
+	}H; //水平滑动条矩形参数.
+
+	struct
+	{
+		RECT Track;        //滑块矩形.
+		RECT TopArrow;     //上箭头矩形.
+		RECT BottomArrow;  //下箭头矩形.
+		RECT TopPage;      //上滑杆矩形.
+		RECT BottomPage;   //下滑杆矩形.
+	}V; //垂直滑动条矩形参数.
+
+}SCROLLBAR_RECT;
 
 /*
- * Scroll bar messages
+ * 滑动条状态值 / Scrollbar State
  */
-#define SBM_SETVALUE                0x00E0 /* wParam: TRUE:Redraw,FALSE:NotRedraw; lParam: value */
-#define SBM_GETVALUE                0x00E1 /* wParam: none; lParam: none; return: value*/
-#define SBM_SETRANGE                0x00E2 /* wParam: min; lParam: max */
-#define SBM_GETRANGE                0x00E3 /* wParam: pt-min; lParam: pt-max */
+#define	SST_THUMBTRACK		(1<<0) //滑动状态.
+#define SST_LINELEFT        (1<<1) //左箭头点击状态.
+#define SST_LINERIGHT       (1<<2) //右箭头点击状态.
+#define SST_PAGELEFT        (1<<3) //左页点击状态.
+#define SST_PAGERIGHT       (1<<4) //右页点击状态.
+
+#define SST_LINEUP          SST_LINELEFT  //上箭头点击状态.
+#define SST_LINEDOWN        SST_LINERIGHT //下箭头点击状态.
+#define SST_PAGEUP          SST_PAGELEFT  //上页点击状态.
+#define SST_PAGEDOWN        SST_PAGERIGHT //下页点击状态.
+
+/*
+ * 滑动条消息 / Scrollbar messages
+ */
+#define SBM_SETVALUE                0x00E0 //[设置当前值]: <wParam>TRUE:重绘;FALSE:不重绘; <lParam>当前值; <返回>忽略.
+#define SBM_GETVALUE                0x00E1 //[设置当前值]: <wParam>忽略; <lParam>忽略; <返回>当前值.
+#define SBM_SETRANGE                0x00E2 //[设置量程]: <wParam>量程最小值; <lParam>量程最大值; <返回>忽略.
+#define SBM_GETRANGE                0x00E3 //[获得量程]: <wParam>量程最小值(s32 指针); <lParam>量程最大值(s32 指针); <返回>忽略.
 //#define SBM_ENABLE_ARROWS           0x00E4
-#define SBM_GETSTATE           		0x00E5 /* wParam: none; lParam: none; return: state*/
-#define SBM_SETSCROLLINFO           0x00E9 /* wParam: TRUE:Redraw,FALSE:NotRedraw; lParam: pt-SCROLLINFO */
-#define SBM_GETSCROLLINFO           0x00EA /* wParam: none; lParam: pt-SCROLLINFO */
-#define	SBM_GETTRACKRECT		    0x00EB /* wParam: none; lParam: pt-RECT */
+#define SBM_GETSTATE           		0x00E5 //[获得状态]: <wParam>忽略; <lParam>忽略; <返回>状态值.
+#define SBM_SETSCROLLINFO           0x00E9 //[设置参数]: <wParam>TRUE:重绘;FALSE:不重绘; <lParam>参数(SCROLLINFO指针,cbSize成员需预先设置有效值); <返回>忽略.
+#define SBM_GETSCROLLINFO           0x00EA //[获得参数]: <wParam>忽略; <lParam>参数(SCROLLINFO指针,cbSize成员需预先设置有效值); <返回>忽略.
+#define	SBM_GETTRACKRECT		    0x00EB //[获得滑块矩形参数]: <wParam>忽略; <lParam>RECT指针; <返回>忽略.
+#define	SBM_GETRECT		  	 		0x00EC //[获得所有矩形参数]: <wParam>忽略; <lParam>SCROLLBAR_RECT指针; <返回>忽略.
 
 #if 0
 /*
@@ -2035,7 +2013,7 @@ int		GetTextAlign(HDC hdc);
 COLORREF	SetTextColor(HDC hdc,COLORREF color);
 COLORREF	GetTextColor(HDC hdc);
 BOOL	GetDrawRect(HDC hdc,RECT *lprc);
-BOOL	SetDrawRect(HDC hdc,const RECT *lprc);
+BOOL	SetDrawRect(HDC hdc,const RECT *rc_new,RECT *rc_old);
 
 SURFACE*	CreateSurface(SURF_FORMAT Format,U32 nWidth,U32 nHeight,int LineBytes,void *Bits);
 void		DeleteSurface(const SURFACE *pSurf);
@@ -2049,7 +2027,7 @@ BOOL	DCtoBitmap(HDC hdc,BITMAP *bitmap);
 
 void	LPtoDP(HDC hdc,POINT *lpPoint,int nCount);
 void	DPtoLP(HDC hdc,POINT *lpPoint,int nCount);
-BOOL	MoveToEx(HDC hdc,int x,int y,POINT *pt);
+BOOL	MoveToEx(HDC hdc,int x,int y,POINT *pt_old);
 
 
 //int			SetPenStyle(HDC hdc,int style);
@@ -2070,13 +2048,29 @@ HFONT   CreateFont(const FONT_OPS *ft_ops,const void *pdata);
 void    DeleteFont(HFONT hFont);
 HFONT	SetFont(HDC hdc,HFONT hFont);
 HFONT	GetFont(HDC hdc);
+
+
+BOOL	SetTextInterval(HDC hdc, S16 IntervalX,S16 IntervalY);
+/* 函数: SetTextInterval:设置字符显示区间大小(每个字符显示所占的宽度和高度).
+ * 参数: IntervalX/IntervalY:区间值(像素大小),如果设置为0,则使用字体内部默认值.
+ */
+
+BOOL	SetTextSpace(HDC hdc, S16 SpaceX,S16 SpaceY);
+/* 函数: SetTextSpace:设置字符显示空间大小(相邻字符的字距及行距).
+ * 参数: SpaceX/SpaceY:间距值(像素大小).
+ */
+
+BOOL 	GetFontInfo(HFONT hFont,FONT_INFO *ft_info);
 int 	GetFontAveHeight(HFONT hFont);
-int     GetTextWidth(HDC hdc, LPCWSTR lpString, int Count);
-BOOL    GetTextExtent(HDC hdc, LPCWSTR lpString, int Count, SIZE16 *size_out);
+int     GetTextWidth(HDC hdc, const WCHAR *lpString, int Count);
+BOOL    GetTextExtent(HDC hdc, const WCHAR *lpString, int Count, SIZE16 *size_out);
 
 BOOL	IsEnableAlpha(HDC hdc);
 BOOL	EnableAlpha(HDC hdc,BOOL bEnable);
 U8		SetAlpha(HDC hdc,U8 Alpha);
+
+BOOL 	EnableAntiAlias(HDC hdc,BOOL bEnable);
+U8 		SetAntiAliasRate(HDC hdc,U8 AA_Rate);
 
 COLOR_RGB32		AlphaBlendColor(COLOR_RGB32 bk_c,COLOR_RGB32 fr_c,U8 alpha);
 void	ClrDisplay(HDC hdc,const RECT *lpRect,COLORREF color);
@@ -2089,7 +2083,9 @@ void  HLine(HDC hdc,int sx,int sy,int ex);
 void  VLine(HDC hdc,int sx,int sy,int ey);
 void  PolyLine(HDC hdc,int xOff,int yOff,const POINT *pt,int cnt);
 
-void 	DrawArc(HDC hdc,int x, int y, int r, int a1, int a2);
+void 	DrawArc(HDC hdc,int cx, int cy, int r, int a0, int a1);
+void	FillArc(HDC hdc,int cx, int cy, int ri, int ro, int a0, int a1);
+
 void 	DrawEllipse(HDC hdc,int cx, int cy, int rx, int ry);
 void 	FillEllipse(HDC hdc,int cx, int cy, int rx, int ry);
 
@@ -2102,17 +2098,19 @@ void	FillRect(HDC hdc,const RECT *lpRect);
 void	Draw3DRect(HDC hdc,const RECT *lpRect,COLORREF	Color0,COLORREF	Color1);
 void	Fill3DRect(HDC hdc,const RECT *lpRect,COLORREF	Color0,COLORREF	Color1);
 
-void	GradientFillRect(HDC hdc,const RECT *lpRect,COLORREF Color0,COLORREF Color1,BOOL bVert);
+void	GradientFillRect(HDC hdc,const RECT *lpRect,COLORREF c1,COLORREF c2,BOOL bVert);
 //void	DitheredFillRect(HDC hdc,const RECT *lpRect,COLORREF Color,U8 v);
 
 void	DrawRoundRect(HDC hdc,const RECT *lpRect,int r);
 void	FillRoundRect(HDC hdc,const RECT *lpRect,int r);
+void	GradientFillRoundRect(HDC hdc,const RECT *lpRect,int r,COLORREF c1,COLORREF c2,BOOL bVert);
+
 void	DrawPolygon(HDC hdc,int xOff,int yOff,const POINT *pt,int count);
 void	FillPolygon(HDC hdc,int xOff,int yOff,const POINT *pt,int count);
 void	FillFlood(HDC hdc,int x,int y,COLORREF color);
 
-BOOL	TextOut(HDC hdc,int x,int y,LPCWSTR lpString,int nCount);
-int 	DrawTextEx(HDC hdc, LPCWSTR lpString, int nCount, const RECT *lpRect, UINT uDTFormat, const DRAWTEXTPARAMS *pDTParams);
+BOOL 	TextOut(HDC hdc,int x,int y,const WCHAR *pText,int nCount);
+int 	DrawTextEx(HDC hdc, const WCHAR *pText, int nCount, const RECT *lpRect, UINT uDTFormat, const DRAWTEXTPARAMS *pDTParams);
 
 
 
@@ -2128,13 +2126,13 @@ BOOL	AlphaBlend(	HDC dst_hdc,int dst_x,int dst_y,UINT dst_w,UINT dst_h,
 					HDC src_hdc,int src_x,int src_y,UINT src_w,UINT src_h,
 					BLENDFUNCTION bf);
 
-void 	AA_SetPixel(HDC hdc,int x,int y,COLORREF c);
-void 	AA_DrawLine(HDC hdc, int x0, int y0, int x1, int y1);
-void 	AA_DrawBoldLine(HDC hdc, int x0, int y0, int x1, int y1);
-void	AA_DrawPolygon(HDC hdc,int xOff,int yOff,const POINT *ps,int count);
-void	AA_FillPolygon(HDC hdc,int xOff,int yOff,const POINT *ps,int count);
-void	AA_DrawCircle(HDC hdc,int cx,int cy,int r);
-void	AA_FillCircle(HDC hdc,int cx,int cy,int r);
+
+void 	AA_DrawLine(HDC hdc, int sx, int sy, int ex, int ey,COLORREF c);
+void 	AA_DrawBoldLine(HDC hdc, int sx, int sy, int ex, int ey,COLORREF c);
+//void	AA_DrawPolygon(HDC hdc,int xOff,int yOff,const POINT *ps,int count);
+//void	AA_FillPolygon(HDC hdc,int xOff,int yOff,const POINT *ps,int count);
+//void	AA_DrawCircle(HDC hdc,int cx,int cy,int r);
+//void	AA_FillCircle(HDC hdc,int cx,int cy,int r);
 
 //BITMAP*	LoadBitmap(rwctx_t *rwctx,CONST LPRECT lprc);
 BOOL	DrawBitmap(HDC hdc,int x,int y,const BITMAP *bitmap,const RECT *lpRect);
@@ -2151,8 +2149,16 @@ BOOL	BMP_DrawEx(HDC hdc,int x,int y,GUI_GET_DATA *read_data,const RECT *lprc);
 typedef struct	tagGIF_DECODE* HGIF;
 typedef	S32	GIF_DELAY;
 
+typedef	struct	tagGIF_INFO
+{
+	U16 FrameCount;  //帧数量.
+	U16	Width;       //图像宽度.
+	U16	Height;      //图像高度.
+	U16 Rsv;         //保留.
+}GIF_INFO;
+
 HGIF    GIF_Open(const void *dat);
-BOOL    GIF_GetInfo(HGIF hGIF,IMAGE_INFO *Info);
+BOOL	GIF_GetInfo(HGIF gif_dec,GIF_INFO *Info);
 UINT    GIF_GetFrameCount(HGIF hGIF);
 GIF_DELAY    GIF_GetFrameDelay(HGIF gif_dec,UINT frame_idx);
 GIF_DELAY    GIF_DrawFrame(HDC hdc,int x,int y,COLORREF bk_color,HGIF hGIF,UINT frame_idx);
@@ -2222,10 +2228,11 @@ HFONT 	GetWindowFont(HWND hwnd);
 LONG	SetWindowLong(HWND hwnd,int index,LONG dwNewLong);
 LONG	GetWindowLong(HWND hwnd,int index);
 
-#if 0
-BKGNDERASEPROC	SetWindowErase(HWND hwnd,BKGNDERASEPROC cb);
-BKGNDERASEPROC	GetWindowErase(HWND hwnd);
-#endif
+
+WNDERASEBKGND	SetWindowErase(HWND hwnd,WNDERASEBKGND cb);
+WNDERASEBKGND	GetWindowErase(HWND hwnd);
+void	SetWindowEraseEx(HWND hwnd,WNDERASEBKGND cb,BOOL bSetAllChildren);
+
 
 WNDPROC	SetWindowProc(HWND hwnd,WNDPROC cb);
 WNDPROC	GetWindowProc(HWND hwnd);
@@ -2289,7 +2296,9 @@ int	DestroyWindow(HWND hwnd);
 #define	TMR_SINGLE  (1<<0) //如果指定该标记,则为单次定时触发,否则为循环定时触发.
 #define	TMR_START   (1<<1) //如果指定该标记,则启动定时器.
 
+
 HTMR 	SetTimer(HWND hwnd,UINT TMR_Id,U32 IntervalMS,U32 Flags,TIMERPROC Proc);
+BOOL	StartTimer(HWND hwnd,UINT TMR_Id,BOOL bStart);
 BOOL	ResetTimer(HWND hwnd,UINT TMR_Id,U32 IntervalMS,U32 Flags,TIMERPROC Proc);
 BOOL 	KillTimer(HWND hwnd,UINT TMR_Id);
 
@@ -2316,7 +2325,7 @@ int	MessageBoxEx(U32 ExStyle,U32 Style,HWND hwndParent,int x,int y,int w,int h,
 		DialogWindowEx(0,wcex,lpWindowName,dwStyle,x,y,nWidth,nHeight,hwndParent,WinId,hInstance,lpParam)
 
 #define	MessageBox(hwndParent, x, y, w, h, pText, pCaption, opt)\
-		MessageBoxEx(0,WS_CAPTION|WS_DLGFRAME|WS_BORDER,hwndParent,x,y,w,h,pText,pCaption,opt)
+		MessageBoxEx(0,WS_OVERLAPPEDWINDOW,hwndParent,x,y,w,h,pText,pCaption,opt)
 	
 /*===================================================================================*/
 //// Cursor
@@ -2331,6 +2340,13 @@ void PostKeyMessage(U8 key,BOOL IsKeyDown);
 
 /*===================================================================================*/
 /*===================================================================================*/
+
+typedef	int (FN_XFT_GetData)(void *buf,int offset,int size,LONG lParam);
+HFONT	XFT_CreateFont(const void *xft_dat);
+HFONT	XFT_CreateFontEx(FN_XFT_GetData *pfnGetData,LONG lParam);
+
+/*===================================================================================*/
+	#include "gui_drv.h"
 
 /*===================================================================================*/
 
